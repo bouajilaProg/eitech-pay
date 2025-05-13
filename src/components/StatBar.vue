@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <div class="page-body">
-      <div class="container-xl">
+      <div class="">
         <div class="row row-deck row-cards mb-4">
           <StatCard title="New Users" :value="1523" />
           <StatCard title="Revenue" value="$12,340" />
