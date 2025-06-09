@@ -1,15 +1,22 @@
 import { createRouter, createWebHistory } from 'vue-router'
+
 import Dashboard from './views/Dashboard.vue'
-// import Details from '../views/Details.vue'
+import ProductView from './views/ProductView.vue'
+import ProductEdit from './views/ProductEdit.vue'
 import Login from './views/Login.vue'
-// import Register from '../views/Register.vue'
-//
+import NotFound from './views/NotFound.vue'
+import Settings from './views/Settings.vue'
+
 const routes = [
   { path: '/', redirect: '/dashboard' },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard },
-  //   { path: '/details', name: 'Details', component: Details },
+  { path: '/products/:product_id', name: 'ProductView', component: ProductView, props: true },
+  { path: '/products/:product_id/edit', name: 'ProductEdit', component: ProductEdit, props: true },
   { path: '/login', name: 'Login', component: Login },
-  //   { path: '/register', name: 'Register', component: Register }
+  { path:"/settings", name: 'Settings', component: Settings},
+
+  // 404 fallback
+  { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
 
 const router = createRouter({

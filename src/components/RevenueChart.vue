@@ -46,6 +46,7 @@ import {
 } from 'chart.js';
 import { Bar } from 'vue-chartjs';
 import { ref, computed } from 'vue';
+import { defaultChartData, defaultChartOptions } from '../static-default.ts';
 
 ChartJS.register(
   CategoryScale,
@@ -71,39 +72,30 @@ const chartData = computed(() => {
     labels = ['Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug'];
 
     if (selectedProduct.value === 'all') {
-      netProfit = [30, 40, 35, 50, 49, 60, 70];
-      revenue = [40, 50, 45, 60, 59, 70, 80];
+      revenue = [0, 0, 0, 400, 5600, 0,0];
     } else if (selectedProduct.value === 'subscription') {
-      netProfit = [20, 25, 22, 35, 36, 40, 45];
-      revenue = [25, 30, 28, 42, 43, 48, 52];
+      revenue = [0, 0, 0, 0, 0, 0, 0];
     } else { // license
-      netProfit = [10, 15, 13, 15, 13, 20, 25];
-      revenue = [15, 20, 17, 18, 16, 22, 28];
+      revenue = [0, 0, 0, 0, 0, 0, 0];
     }
   } else if (selectedPeriod.value === 'quarterly') {
     labels = ['Q1', 'Q2', 'Q3', 'Q4'];
 
     if (selectedProduct.value === 'all') {
-      netProfit = [105, 105, 179, 90];
       revenue = [130, 130, 209, 110];
     } else if (selectedProduct.value === 'subscription') {
-      netProfit = [67, 71, 121, 55];
       revenue = [80, 85, 143, 65];
     } else { // license
-      netProfit = [38, 34, 58, 35];
       revenue = [50, 45, 66, 45];
     }
   } else { // yearly
     labels = ['2022', '2023', '2024', '2025'];
 
     if (selectedProduct.value === 'all') {
-      netProfit = [300, 350, 400, 335];
       revenue = [400, 450, 500, 430];
     } else if (selectedProduct.value === 'subscription') {
-      netProfit = [180, 220, 260, 215];
       revenue = [240, 290, 320, 280];
     } else { // license
-      netProfit = [120, 130, 140, 120];
       revenue = [160, 160, 180, 150];
     }
   }
@@ -111,14 +103,6 @@ const chartData = computed(() => {
   return {
     labels: labels,
     datasets: [
-      {
-        label: 'Net Profit',
-        data: netProfit,
-        backgroundColor: '#2ecc71', // Softer green
-        borderColor: '#27ae60',     // Deeper green for contrast
-        borderRadius: 4,
-        borderWidth: 1
-      },
       {
         label: 'Revenue',
         data: revenue,
