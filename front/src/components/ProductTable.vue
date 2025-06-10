@@ -46,20 +46,38 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import AddProductModal from '@comp/AddProductModal.vue'
-import { productsData } from '../temp-data.ts'
+import { productService } from '@/services/product.service.ts'
 
 const router = useRouter()
-const products = ref([...productsData])
+const products = ref([])
 const showModal = ref(false)
 
-function addProduct(newProduct) {
-  products.value.push({
-    ...newProduct,
-    subtitle: newProduct.type === 'license' ? 'License' : 'Subscription',
-    route: `/products/${newProduct.id}`
-  })
+async function loadProducts() {
+  try {
+    products.value = await productService.getAll()
+    console.log('Products loaded:', products.value)
+    products.value = products.value.map(p => ({
+      ...p,
+      route: `/products/${p.id}`
+    }))
+  } catch (error) {
+    console.error('Failed to load products:', error)
+  }
 }
+
+async function addProduct(newProductInput) {
+  try {
+    await productService.create(newProductInput);
+    await loadProducts();
+    showModal.value = false;
+  } catch (error) {
+    console.error('Failed to add product:', error);
+  }
+}
+
+onMounted(loadProducts)
 </script>
+
