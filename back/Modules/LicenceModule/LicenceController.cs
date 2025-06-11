@@ -1,8 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Back.Models.LicenceRelated;
 using Microsoft.AspNetCore.Mvc;
+
+
+using Back.Models.LicenceRelated;
 using Back.Modules.LicenceModule.Services;
+using Back.Modules.GeneralServices;
+using Back.Modules.LicenceModule.Dtos;
 
 namespace Back.Modules.LicenceModule
 {
@@ -41,9 +45,9 @@ namespace Back.Modules.LicenceModule
         }
 
         [HttpPost]
-        public async Task<ActionResult<int>> Create([FromBody] Licence licence)
+        public async Task<ActionResult<int>> Create([FromBody] CreateLicenceDto createLicenceDto)
         {
-            var newId = await _licenceService.CreateAsync(licence);
+            var newId = await _licenceService.CreateAsync(createLicenceDto);
             return CreatedAtAction(nameof(GetById), new { id = newId }, newId);
         }
 

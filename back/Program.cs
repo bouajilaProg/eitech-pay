@@ -1,7 +1,9 @@
 using System.Data;
 using MySql.Data.MySqlClient;
+
 using Back.Modules.LicenceModule.Services;
 using Back.Modules.PublicModule.Services;
+using Back.Modules.GeneralServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +23,7 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 builder.Services.AddScoped<ILicenceService, LicenceService>();
 builder.Services.AddScoped<ILicenceOptionService, LicenceOptionService>();
 builder.Services.AddScoped<IPublicLicenceService, PublicLicenceService>();
+builder.Services.AddScoped<IProductService, ProductService>();
 
 // Add controllers and OpenAPI
 builder.Services.AddControllers();

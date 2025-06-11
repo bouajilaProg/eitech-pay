@@ -1,6 +1,9 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using Back.Models.LicenceRelated;
+using Back.Modules.LicenceModule.Dtos;
+
 
 namespace Back.Modules.LicenceModule.Services
 {
@@ -13,7 +16,7 @@ namespace Back.Modules.LicenceModule.Services
         Task<IEnumerable<Licence>> GetAllAsync();
 
         // Create a new license
-        Task<int> CreateAsync(Licence licence);
+        Task<int> CreateAsync(CreateLicenceDto createLicenceDto);
 
         // Update an existing license by ID, only if not archived
         Task<bool> UpdateAsync(Licence licence);
