@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-
 using Back.Models.LicenceRelated;
 using Back.Modules.LicenceModule.Services;
 using Back.Modules.GeneralServices;
@@ -10,6 +9,9 @@ using Back.Modules.LicenceModule.Dtos;
 
 namespace Back.Modules.LicenceModule
 {
+    /// <summary>
+    /// Controller responsible for managing Licences and their associated options.
+    /// </summary>
     [ApiController]
     [Route("api/[controller]")]
     public class LicenceController : ControllerBase
@@ -27,6 +29,10 @@ namespace Back.Modules.LicenceModule
 
         // -------------------- Licence Endpoints --------------------
 
+        /// <summary>
+        /// Retrieves all licences.
+        /// </summary>
+        /// <returns>A list of all licences.</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Licence>>> GetAll()
         {
@@ -34,6 +40,11 @@ namespace Back.Modules.LicenceModule
             return Ok(licences);
         }
 
+        /// <summary>
+        /// Retrieves a specific licence by its ID.
+        /// </summary>
+        /// <param name="id">The ID of the licence to retrieve.</param>
+        /// <returns>The requested licence if found; otherwise, NotFound.</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Licence>> GetById(int id)
         {
@@ -44,6 +55,11 @@ namespace Back.Modules.LicenceModule
             return Ok(licence);
         }
 
+        /// <summary>
+        /// Creates a new licence.
+        /// </summary>
+        /// <param name="createLicenceDto">The data to create the licence.</param>
+        /// <returns>The ID of the created licence.</returns>
         [HttpPost]
         public async Task<ActionResult<int>> Create([FromBody] CreateLicenceDto createLicenceDto)
         {
@@ -51,6 +67,12 @@ namespace Back.Modules.LicenceModule
             return CreatedAtAction(nameof(GetById), new { id = newId }, newId);
         }
 
+        /// <summary>
+        /// Updates an existing licence.
+        /// </summary>
+        /// <param name="id">The ID of the licence to update.</param>
+        /// <param name="licence">The updated licence data.</param>
+        /// <returns>No content if successful; otherwise, NotFound or BadRequest.</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, [FromBody] Licence licence)
         {
@@ -64,6 +86,11 @@ namespace Back.Modules.LicenceModule
             return NoContent();
         }
 
+        /// <summary>
+        /// Deletes a licence by ID.
+        /// </summary>
+        /// <param name="id">The ID of the licence to delete.</param>
+        /// <returns>No content if successful; otherwise, NotFound.</returns>
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
@@ -76,7 +103,10 @@ namespace Back.Modules.LicenceModule
 
         // -------------------- Licence Option Endpoints --------------------
 
-        // GET: api/licence/options
+        /// <summary>
+        /// Retrieves all licence options.
+        /// </summary>
+        /// <returns>A list of all licence options.</returns>
         [HttpGet("options")]
         public async Task<ActionResult<IEnumerable<LicenceOption>>> GetAllOptions()
         {
@@ -84,7 +114,11 @@ namespace Back.Modules.LicenceModule
             return Ok(options);
         }
 
-        // GET: api/licence/options/{id}
+        /// <summary>
+        /// Retrieves a licence option by ID.
+        /// </summary>
+        /// <param name="id">The ID of the option to retrieve.</param>
+        /// <returns>The requested licence option if found; otherwise, NotFound.</returns>
         [HttpGet("options/{id}")]
         public async Task<ActionResult<LicenceOption>> GetOptionById(int id)
         {
@@ -95,7 +129,11 @@ namespace Back.Modules.LicenceModule
             return Ok(option);
         }
 
-        // GET: api/licence/{licenceId}/options
+        /// <summary>
+        /// Retrieves all options associated with a specific licence.
+        /// </summary>
+        /// <param name="licenceId">The ID of the licence.</param>
+        /// <returns>A list of options for the specified licence.</returns>
         [HttpGet("{licenceId}/options")]
         public async Task<ActionResult<IEnumerable<LicenceOption>>> GetOptionsByLicenceId(int licenceId)
         {
@@ -103,7 +141,11 @@ namespace Back.Modules.LicenceModule
             return Ok(options);
         }
 
-        // POST: api/licence/options
+        /// <summary>
+        /// Creates a new licence option.
+        /// </summary>
+        /// <param name="option">The licence option to create.</param>
+        /// <returns>The ID of the created option.</returns>
         [HttpPost("options")]
         public async Task<ActionResult<int>> CreateOption([FromBody] LicenceOption option)
         {
@@ -111,7 +153,12 @@ namespace Back.Modules.LicenceModule
             return CreatedAtAction(nameof(GetOptionById), new { id = newId }, newId);
         }
 
-        // PUT: api/licence/options/{id}
+        /// <summary>
+        /// Updates an existing licence option.
+        /// </summary>
+        /// <param name="id">The ID of the option to update.</param>
+        /// <param name="option">The updated licence option data.</param>
+        /// <returns>No content if successful; otherwise, NotFound or BadRequest.</returns>
         [HttpPut("options/{id}")]
         public async Task<IActionResult> UpdateOption(int id, [FromBody] LicenceOption option)
         {
@@ -125,7 +172,11 @@ namespace Back.Modules.LicenceModule
             return NoContent();
         }
 
-        // DELETE: api/licence/options/{id}
+        /// <summary>
+        /// Deletes a licence option by ID.
+        /// </summary>
+        /// <param name="id">The ID of the option to delete.</param>
+        /// <returns>No content if successful; otherwise, NotFound.</returns>
         [HttpDelete("options/{id}")]
         public async Task<IActionResult> DeleteOption(int id)
         {

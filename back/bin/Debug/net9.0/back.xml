@@ -1,0 +1,140 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>back</name>
+    </assembly>
+    <members>
+        <member name="T:Back.Modules.LicenceModule.LicenceController">
+            <summary>
+            Controller responsible for managing Licences and their associated options.
+            </summary>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.GetAll">
+            <summary>
+            Retrieves all licences.
+            </summary>
+            <returns>A list of all licences.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.GetById(System.Int32)">
+            <summary>
+            Retrieves a specific licence by its ID.
+            </summary>
+            <param name="id">The ID of the licence to retrieve.</param>
+            <returns>The requested licence if found; otherwise, NotFound.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.Create(Back.Modules.LicenceModule.Dtos.CreateLicenceDto)">
+            <summary>
+            Creates a new licence.
+            </summary>
+            <param name="createLicenceDto">The data to create the licence.</param>
+            <returns>The ID of the created licence.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.Update(System.Int32,Back.Models.LicenceRelated.Licence)">
+            <summary>
+            Updates an existing licence.
+            </summary>
+            <param name="id">The ID of the licence to update.</param>
+            <param name="licence">The updated licence data.</param>
+            <returns>No content if successful; otherwise, NotFound or BadRequest.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.Delete(System.Int32)">
+            <summary>
+            Deletes a licence by ID.
+            </summary>
+            <param name="id">The ID of the licence to delete.</param>
+            <returns>No content if successful; otherwise, NotFound.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.GetAllOptions">
+            <summary>
+            Retrieves all licence options.
+            </summary>
+            <returns>A list of all licence options.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.GetOptionById(System.Int32)">
+            <summary>
+            Retrieves a licence option by ID.
+            </summary>
+            <param name="id">The ID of the option to retrieve.</param>
+            <returns>The requested licence option if found; otherwise, NotFound.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.GetOptionsByLicenceId(System.Int32)">
+            <summary>
+            Retrieves all options associated with a specific licence.
+            </summary>
+            <param name="licenceId">The ID of the licence.</param>
+            <returns>A list of options for the specified licence.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.CreateOption(Back.Models.LicenceRelated.LicenceOption)">
+            <summary>
+            Creates a new licence option.
+            </summary>
+            <param name="option">The licence option to create.</param>
+            <returns>The ID of the created option.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.UpdateOption(System.Int32,Back.Models.LicenceRelated.LicenceOption)">
+            <summary>
+            Updates an existing licence option.
+            </summary>
+            <param name="id">The ID of the option to update.</param>
+            <param name="option">The updated licence option data.</param>
+            <returns>No content if successful; otherwise, NotFound or BadRequest.</returns>
+        </member>
+        <member name="M:Back.Modules.LicenceModule.LicenceController.DeleteOption(System.Int32)">
+            <summary>
+            Deletes a licence option by ID.
+            </summary>
+            <param name="id">The ID of the option to delete.</param>
+            <returns>No content if successful; otherwise, NotFound.</returns>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionController.GetAll">
+            <summary>
+            Get all subscription products.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionController.GetById(System.Int32)">
+            <summary>
+            Get a subscription product by ID.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionController.Create(Back.Models.General.Product)">
+            <summary>
+            Create a new subscription product.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionController.Update(System.Int32,Back.Models.General.Product)">
+            <summary>
+            Update an existing subscription product.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionController.Delete(System.Int32)">
+            <summary>
+            Soft delete a subscription product.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionTierController.GetAll">
+            <summary>
+            Get all subscription tiers.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionTierController.GetById(System.Int32)">
+            <summary>
+            Get a subscription tier by ID.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionTierController.Create(Back.Models.SubscriptionRelated.SubscriptionTier)">
+            <summary>
+            Create a new subscription tier.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionTierController.Update(System.Int32,Back.Models.SubscriptionRelated.SubscriptionTier)">
+            <summary>
+            Update a subscription tier.
+            </summary>
+        </member>
+        <member name="M:Back.Module.SubscriptionModule.SubscriptionTierController.Delete(System.Int32)">
+            <summary>
+            Delete a subscription tier.
+            </summary>
+        </member>
+    </members>
+</doc>
