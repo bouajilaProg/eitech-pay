@@ -11,8 +11,8 @@
         </button>
       </div>
 
-      <ProductDetailsEdit />
-      <TiersTable @open-modal="openModal" />
+      <ProductDetailsEdit ref="productComponentRef" />
+      <OptionsTable @open-modal="openModal" />
       <AddTierModal v-if="showModal" @close="showModal = false" @add-tier="handleAddTier" />
     </main>
   </div>
@@ -22,35 +22,55 @@
 import "../global.css"
 
 import { ref } from 'vue'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
-// Import components from ProductEdit folder
+// Import components
 import ProductDetailsEdit from '../components/ProductEdit/ProductDetailsEdit.vue'
-import TiersTable from '../components/ProductEdit/TiersTable.vue'
+import OptionsTable from '../components/ProductEdit/OptionsTable.vue'
 import AddTierModal from '../components/ProductEdit/AddTierModal.vue'
+import { productService } from '@/services/product.service.ts'
 
-// Modal visibility state
 const showModal = ref(false)
 const router = useRouter()
+const route = useRoute()
 
-function handleAddTier(newTier) {
-  // Close modal after adding tier
-  showModal.value = false
-}
+// Ref for the child component
+const productComponentRef = ref(null)
 
 function openModal() {
   showModal.value = true
 }
 
-function handleSubmit() {
-  // Simulate sending a submit request
-  console.log("Submit button clicked: sending request...")
-  // Add your actual request logic here
+function handleAddTier(newTier) {
+  showModal.value = false
+}
+
+async function handleSubmit() {
+  try {
+    if (!productComponentRef.value) {
+      throw new Error('Product component not mounted')
+    }
+
+    const product = productComponentRef.value.product
+    const productId = route.params.product_id
+
+    console.log("Submitting product:", product)
+
+    await productService.update(productId, {
+      name: product.name,
+      description: product.description,
+      productType: parseInt(product.productType)
+    })
+
+    console.log("Product updated successfully")
+    router.push(`/products/${productId}`)
+  } catch (err) {
+    console.error("Failed to update product:", err)
+  }
 }
 
 function handleCancel() {
-  // Navigate to /products/1 on cancel
-  router.push('/products/1')
+  router.push(`/products/${route.params.product_id}`)
 }
 </script>
 

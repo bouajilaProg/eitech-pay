@@ -14,7 +14,19 @@ const routes = [
   { path: '/products/:product_id/edit', name: 'ProductEdit', component: ProductEdit, props: true },
   { path: '/login', name: 'Login', component: Login },
   { path:"/settings", name: 'Settings', component: Settings},
-
+  {
+    path: '/docs',
+    name: 'Docs',
+    beforeEnter: (to, from, next) => {
+      window.location.href = '/docs/index.html'
+    }
+  },
+  {
+    path: '/docs/:pathMatch(.*)*',
+    beforeEnter: (to, from, next) => {
+      window.location.href = `/docs/${to.params.pathMatch || 'index.html'}`
+    }
+  },
   // 404 fallback
   { path: '/:pathMatch(.*)*', name: 'NotFound', component: NotFound },
 ]
