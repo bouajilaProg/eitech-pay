@@ -24,13 +24,12 @@
           </tr>
         </thead>
         <tbody>
-          <tr v-for="product in products" :key="product.id" @click="router.push(product.route)" style="cursor: pointer">
-            <td>{{ product.id }}</td>
+          <tr @click="router.push('/products/1')" style="cursor: pointer">
+            <td>prod_1</td>
             <td>
-              <strong>{{ product.name }}</strong><br />
-              <span class="text-secondary">{{ product.subtitle }}</span>
+              <strong>name_1</strong><br />
             </td>
-            <td>{{ product.description }}</td>
+            <td>desciption_1</td>
           </tr>
         </tbody>
       </table>

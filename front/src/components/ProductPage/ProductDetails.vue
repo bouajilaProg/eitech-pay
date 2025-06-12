@@ -8,25 +8,20 @@
             <!-- Product ID -->
             <div class="mb-4">
               <label class="form-label">Product ID</label>
-              <p class="text-muted mb-0">{{ product.id }}</p>
+              <p class="text-muted mb-0">prod_1</p>
             </div>
       <!-- Product Name -->
       <div class="mb-4">
         <label class="form-label">Product Name</label>
-        <h3 class="mb-0">{{ product.name }}</h3>
+        <h3 class="mb-0">name_1</h3>
       </div>
 
       <!-- Product Description -->
       <div class="mb-4">
         <label class="form-label">Description</label>
-        <p class="mb-0">{{ product.description }}</p>
+        <p class="mb-0">description_1</p>
       </div>
 
-      <!-- Product Type -->
-      <div class="mb-4">
-        <label class="form-label">Type</label>
-        <p class="mb-0">{{ product.productType == 0 ? 'License' : 'Subscription' }}</p>
-      </div>
 
     </div>
   </div>
