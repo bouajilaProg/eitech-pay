@@ -9,4 +9,4 @@ public class SubscriptionTier
     public int GracePeriod { get; set; }
     public decimal Price { get; set; }
     public bool IsArchived { get; set; }
- 
+} 

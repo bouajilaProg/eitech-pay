@@ -10,7 +10,7 @@ public enum SubscriptionOrderStatus
 public class SubscriptionOrder
 {
     public int Id { get; set; }
-    public string SubscriptionId { get; set; };
+    public string SubscriptionId { get; set; }
     public string SubscriptionTierId { get; set; }
 
     public int UserId { get; set; }
