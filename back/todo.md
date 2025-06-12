@@ -1,3 +1,3 @@
-* prodid,subid and licenceid have to be a string not integer
-* IsArchived should be a boolean
-* add sales to sub, tiers, licence and licenceOption
+* prodid,subid and licenceid have to be a string not integer V
+* IsArchived should be a boolean V
+* add sales to sub, tiers, licence and licenceOption V

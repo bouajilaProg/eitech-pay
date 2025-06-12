@@ -15,7 +15,7 @@ namespace Back.Modules.SubscriptionModule.Services
             _db = db;
         }
 
-        public async Task<SubscriptionTier?> GetByIdAsync(int tierId)
+        public async Task<SubscriptionTier?> GetByIdAsync(string tierId)
         {
             const string query = @"
                 SELECT * FROM subscription_tiers
@@ -35,7 +35,7 @@ namespace Back.Modules.SubscriptionModule.Services
             return await _db.QueryAsync<SubscriptionTier>(query);
         }
 
-        public async Task<IEnumerable<SubscriptionTier>> GetSubscriptionByID(int productId)
+        public async Task<IEnumerable<SubscriptionTier>> GetSubscriptionByID(string productId)
         {
             const string query = @"
                 SELECT * FROM subscription_tiers
@@ -45,7 +45,7 @@ namespace Back.Modules.SubscriptionModule.Services
             return await _db.QueryAsync<SubscriptionTier>(query, new { ProductId = productId });
         }
 
-        public async Task<int> CreateAsync(SubscriptionTier tier)
+        public async Task<string> CreateAsync(SubscriptionTier tier)
         {
             const string query = @"
                 INSERT INTO subscription_tiers (product_id, tier_name, duration, grace_period, price, is_archived)
@@ -53,7 +53,7 @@ namespace Back.Modules.SubscriptionModule.Services
                 SELECT LAST_INSERT_ID();
             ";
 
-            return await _db.ExecuteScalarAsync<int>(query, tier);
+            return await _db.ExecuteScalarAsync<string>(query, tier);
         }
 
         public async Task<bool> UpdateAsync(SubscriptionTier tier)
@@ -72,7 +72,7 @@ namespace Back.Modules.SubscriptionModule.Services
             return affectedRows > 0;
         }
 
-        public async Task<bool> DeleteAsync(int tierId)
+        public async Task<bool> DeleteAsync(string tierId)
         {
             const string query = @"
                 UPDATE subscription_tiers

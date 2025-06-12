@@ -1,8 +1,7 @@
-
 using System.Collections.Generic;
 using System.Data;
 using System.Threading.Tasks;
-using Back.Models.General;
+using Back.Models.SubscriptionRelated;
 using Dapper;
 
 namespace Back.Modules.SubscriptionModule.Services
@@ -16,74 +15,72 @@ namespace Back.Modules.SubscriptionModule.Services
             _db = db;
         }
 
-        public async Task<Product?> GetByIdAsync(int productId)
+        public async Task<Subscription?> GetByIdAsync(string subscriptionId)
         {
             const string query = @"
-                SELECT * FROM products
-                WHERE id = @ProductId AND is_archived = false AND product_type = @ProductType;
+                SELECT
+                    subscription_id AS SubscriptionId,
+                    description,
+                    is_archived AS IsArchived
+                FROM subscriptions
+                WHERE subscription_id = @SubscriptionId AND is_archived = false;
             ";
 
-            return await _db.QueryFirstOrDefaultAsync<Product>(query, new
+            return await _db.QueryFirstOrDefaultAsync<Subscription>(query, new
             {
-                ProductId = productId,
-                ProductType = ProductType.Subscription.ToString()
+                SubscriptionId = subscriptionId
             });
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Subscription>> GetAllAsync()
         {
             const string query = @"
-                SELECT * FROM products
-                WHERE is_archived = false AND product_type = @ProductType;
+                SELECT
+                    subscription_id AS SubscriptionId,
+                    description,
+                    is_archived AS IsArchived
+                FROM subscriptions
+                WHERE is_archived = false;
             ";
 
-            return await _db.QueryAsync<Product>(query, new
-            {
-                ProductType = ProductType.Subscription.ToString()
-            });
+            return await _db.QueryAsync<Subscription>(query);
         }
 
-        public async Task<int> CreateAsync(Product product)
+        public async Task<string> CreateAsync(Subscription subscription)
         {
             const string query = @"
-                INSERT INTO products (id,name, description, product_type, is_archived)
-                VALUES (@Id,@Name, @Description, @ProductType, false)
-                RETURNING id;
+                INSERT INTO subscriptions (subscription_id, description, is_archived)
+                VALUES (@SubscriptionId, @description, @IsArchived)
+                RETURNING subscription_id;
             ";
 
-            // Force the product type to Subscription
-            product.ProductType = ProductType.Subscription.ToString();
-
-            return await _db.ExecuteScalarAsync<int>(query, product);
+            return await _db.ExecuteScalarAsync<string>(query, subscription);
         }
 
-        public async Task<bool> UpdateAsync(Product product)
+        public async Task<bool> UpdateAsync(Subscription subscription)
         {
             const string query = @"
-                UPDATE products
-                SET name = @Name,
-                    description = @Description
-                WHERE id = @Id AND is_archived = false AND product_type = @ProductType;
+                UPDATE subscriptions
+                SET
+                    description = @description
+                WHERE subscription_id = @SubscriptionId AND is_archived = false;
             ";
 
-            product.ProductType = ProductType.Subscription.ToString();
-
-            var affected = await _db.ExecuteAsync(query, product);
+            var affected = await _db.ExecuteAsync(query, subscription);
             return affected > 0;
         }
 
-        public async Task<bool> DeleteAsync(int productId)
+        public async Task<bool> DeleteAsync(string subscriptionId)
         {
             const string query = @"
-                UPDATE products
+                UPDATE subscriptions
                 SET is_archived = true
-                WHERE id = @ProductId AND is_archived = false AND product_type = @ProductType;
+                WHERE subscription_id = @SubscriptionId AND is_archived = false;
             ";
 
             var affected = await _db.ExecuteAsync(query, new
             {
-                ProductId = productId,
-                ProductType = ProductType.Subscription.ToString()
+                SubscriptionId = subscriptionId
             });
 
             return affected > 0;

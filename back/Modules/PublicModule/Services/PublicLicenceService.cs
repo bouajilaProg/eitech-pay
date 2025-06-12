@@ -15,7 +15,7 @@ namespace Back.Modules.PublicModule.Services
             _db = db;
         }
 
-        public async Task<LicenceDetailedDto?> GetDetailedLicenceById(int licenceId)
+        public async Task<LicenceDetailedDto?> GetDetailedLicenceById(string licenceId)
         {
             const string licenceQuery = @"
                 SELECT * FROM licences 

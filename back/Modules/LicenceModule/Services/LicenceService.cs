@@ -23,7 +23,7 @@ namespace Back.Modules.LicenceModule.Services
             _productService = productService;
         }
 
-        public async Task<Licence?> GetByIdAsync(int licenceId)
+        public async Task<Licence?> GetByIdAsync(string licenceId)
         {
 
             const string query = @"
@@ -104,7 +104,7 @@ namespace Back.Modules.LicenceModule.Services
             return affectedRows > 0;
         }
 
-        public async Task<bool> DeleteAsync(int licenceId)
+        public async Task<bool> DeleteAsync(string licenceId)
         {
             const string query = @"
                 UPDATE licences

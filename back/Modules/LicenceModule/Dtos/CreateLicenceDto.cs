@@ -3,7 +3,7 @@ namespace Back.Modules.LicenceModule.Dtos;
 
 public class CreateLicenceDto
 {
-    public int LicenceId { get; set; }
+    public string LicenceId { get; set; }
     public string ProductName { get; set; } = null!;
     public string ProductDescription { get; set; } = null!;
 

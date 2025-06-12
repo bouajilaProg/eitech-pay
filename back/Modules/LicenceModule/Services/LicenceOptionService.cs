@@ -15,7 +15,7 @@ namespace Back.Modules.LicenceModule.Services
             _db = db;
         }
 
-        public async Task<LicenceOption?> GetByIdAsync(int optionId)
+        public async Task<LicenceOption?> GetByIdAsync(string optionId)
         {
             const string query = @"
                 SELECT * FROM licence_options
@@ -35,7 +35,7 @@ namespace Back.Modules.LicenceModule.Services
             return await _db.QueryAsync<LicenceOption>(query);
         }
 
-        public async Task<IEnumerable<LicenceOption>> GetByLicenceIdAsync(int licenceId)
+        public async Task<IEnumerable<LicenceOption>> GetByLicenceIdAsync(string licenceId)
         {
             const string query = @"
                 SELECT * FROM licence_options
@@ -45,7 +45,7 @@ namespace Back.Modules.LicenceModule.Services
             return await _db.QueryAsync<LicenceOption>(query, new { LicenceId = licenceId });
         }
 
-        public async Task<int> CreateAsync(LicenceOption option)
+        public async Task<string> CreateAsync(LicenceOption option)
         {
             const string query = @"
                 INSERT INTO licence_options (option_id,licence_id, option_name, description, price, is_archived)
@@ -53,7 +53,7 @@ namespace Back.Modules.LicenceModule.Services
                 SELECT LAST_INSERT_ID();
             ";
 
-            return await _db.ExecuteScalarAsync<int>(query, option);
+            return await _db.ExecuteScalarAsync<string>(query, option);
         }
 
         public async Task<bool> UpdateAsync(LicenceOption option)
@@ -71,7 +71,7 @@ namespace Back.Modules.LicenceModule.Services
             return affectedRows > 0;
         }
 
-        public async Task<bool> DeleteAsync(int optionId)
+        public async Task<bool> DeleteAsync(string optionId)
         {
             const string query = @"
                 UPDATE licence_options

@@ -4,8 +4,7 @@ namespace Back.Models.LicenceRelated
 {
     public class LicenceDetailedDto
     {
-        public int LicenceId { get; set; }
-        public int ProductId { get; set; }
+        public string LicenceId { get; set; }
         public int MaxDevices { get; set; }
         public int Duration { get; set; }
         public int GracePeriod { get; set; }

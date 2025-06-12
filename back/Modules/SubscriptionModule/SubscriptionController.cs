@@ -1,8 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Back.Models.General;
-using Back.Models.SubscriptionRelated;
+using Back.Models.General; // Assuming Product is here
+using Back.Models.SubscriptionRelated; // Assuming SubscriptionTier is here
 using Back.Modules.SubscriptionModule.Services;
 
 namespace Back.Module.SubscriptionModule
@@ -31,8 +31,9 @@ namespace Back.Module.SubscriptionModule
         /// <summary>
         /// Get a subscription product by ID.
         /// </summary>
+        // No :string constraint needed by default, it handles strings
         [HttpGet("{subId}")]
-        public async Task<ActionResult<Product?>> GetById(int subId)
+        public async Task<ActionResult<Product?>> GetById(string subId)
         {
             var product = await _subscriptionService.GetByIdAsync(subId);
             if (product == null)
@@ -44,9 +45,10 @@ namespace Back.Module.SubscriptionModule
         /// Create a new subscription product.
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<int>> Create(Product product)
+        public async Task<ActionResult<string>> Create(Product product)
         {
             var newId = await _subscriptionService.CreateAsync(product);
+            // Ensure newId is a string and matches the type of subId
             return CreatedAtAction(nameof(GetById), new { subId = newId }, newId);
         }
 
@@ -54,8 +56,9 @@ namespace Back.Module.SubscriptionModule
         /// Update an existing subscription product.
         /// </summary>
         [HttpPut("{subId}")]
-        public async Task<ActionResult> Update(int subId, Product product)
+        public async Task<ActionResult> Update(string subId, Product product)
         {
+            // Assuming Product.Id is now a string
             if (subId != product.Id)
                 return BadRequest("ID mismatch.");
 
@@ -69,8 +72,9 @@ namespace Back.Module.SubscriptionModule
         /// <summary>
         /// Soft delete a subscription product.
         /// </summary>
-        [HttpDelete("{subId:int}")]
-        public async Task<ActionResult> Delete(int subId)
+        // Removed :int constraint
+        [HttpDelete("{subId}")]
+        public async Task<ActionResult> Delete(string subId)
         {
             var deleted = await _subscriptionService.DeleteAsync(subId);
             if (!deleted)
@@ -104,8 +108,9 @@ namespace Back.Module.SubscriptionModule
         /// <summary>
         /// Get a subscription tier by ID.
         /// </summary>
-        [HttpGet("{tierId:int}")]
-        public async Task<ActionResult<SubscriptionTier?>> GetById(int tierId)
+        // Removed :int constraint
+        [HttpGet("{tierId}")]
+        public async Task<ActionResult<SubscriptionTier?>> GetById(string tierId)
         {
             var tier = await _tiersService.GetByIdAsync(tierId);
             if (tier == null)
@@ -117,18 +122,21 @@ namespace Back.Module.SubscriptionModule
         /// Create a new subscription tier.
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<int>> Create(SubscriptionTier tier)
+        public async Task<ActionResult<string>> Create(SubscriptionTier tier)
         {
             var newTierId = await _tiersService.CreateAsync(tier);
+            // Ensure newTierId is a string and matches the type of tierId
             return CreatedAtAction(nameof(GetById), new { tierId = newTierId }, newTierId);
         }
 
         /// <summary>
         /// Update a subscription tier.
         /// </summary>
-        [HttpPut("{tierId:int}")]
-        public async Task<ActionResult> Update(int tierId, SubscriptionTier tier)
+        // Removed :int constraint
+        [HttpPut("{tierId}")]
+        public async Task<ActionResult> Update(string tierId, SubscriptionTier tier)
         {
+            // Assuming SubscriptionTier.TierId is now a string
             if (tierId != tier.TierId)
                 return BadRequest("ID mismatch.");
 
@@ -142,8 +150,9 @@ namespace Back.Module.SubscriptionModule
         /// <summary>
         /// Delete a subscription tier.
         /// </summary>
-        [HttpDelete("{tierId:int}")]
-        public async Task<ActionResult> Delete(int tierId)
+        // Removed :int constraint
+        [HttpDelete("{tierId}")]
+        public async Task<ActionResult> Delete(string tierId)
         {
             var deleted = await _tiersService.DeleteAsync(tierId);
             if (!deleted)

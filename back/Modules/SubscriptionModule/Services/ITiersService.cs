@@ -8,21 +8,21 @@ namespace Back.Modules.SubscriptionModule.Services
     public interface ITiersService 
     {
         // Get a subscription tier by its ID, only if not archived
-        Task<SubscriptionTier?> GetByIdAsync(int tierId);
+        Task<SubscriptionTier?> GetByIdAsync(string tierId);
 
         // Get all subscription tiers that are not archived
         Task<IEnumerable<SubscriptionTier>> GetAllAsync();
 
         // Get all subscription tiers for a specific product, not archived
-        Task<IEnumerable<SubscriptionTier>> GetSubscriptionByID(int productId);
+        Task<IEnumerable<SubscriptionTier>> GetSubscriptionByID(string productId);
 
         // Create a new subscription tier
-        Task<int> CreateAsync(SubscriptionTier tier);
+        Task<string> CreateAsync(SubscriptionTier tier);
 
         // Update an existing subscription tier by ID, only if not archived
         Task<bool> UpdateAsync(SubscriptionTier tier);
 
         // Soft delete a subscription tier by ID (set IsArchived = true)
-        Task<bool> DeleteAsync(int tierId);
+        Task<bool> DeleteAsync(string tierId);
     }
 }
