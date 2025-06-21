@@ -27,16 +27,16 @@
           <tr @click="router.push('/products/1')" style="cursor: pointer">
             <td>prod_1</td>
             <td>
-              <strong>licence_1</strong><br />
+              <strong>subscription_1</strong><br />
             </td>
-            <td>subscription_1</td>
+            <td>description_1</td>
           </tr>
           <tr @click="router.push('/products/2')" style="cursor: pointer">
             <td>prod_2</td>
             <td>
               <strong>licence_1</strong><br />
             </td>
-            <td>desciption_2</td>
+            <td>description_2</td>
           </tr>
         </tbody>
       </table>

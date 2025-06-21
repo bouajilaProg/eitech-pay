@@ -3,7 +3,7 @@
     <div class="container-tight py-4">
       <div class="text-center mb-4">
         <a href="#" class="navbar-brand navbar-brand-autodark">
-          <img src="https://tabler.io/static/logo.svg" height="36" alt="Logo" />
+          <!-- <img src="https://tabler.io/static/logo.svg" height="36" alt="Logo" /> -->
         </a>
       </div>
 
@@ -37,10 +37,10 @@
         </div>
       </form>
 
-      <div class="text-center text-muted mt-3">
+      <!-- <div class="text-center text-muted mt-3">
         Don't have account yet?
         <a href="register.html" tabindex="-1">Sign up</a>
-      </div>
+      </div> -->
     </div>
   </div>
 </template>

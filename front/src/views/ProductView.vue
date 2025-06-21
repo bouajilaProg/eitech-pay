@@ -11,6 +11,7 @@
       </div>
       <ProductDetails />
       <RevenuChart />
+      <br />
       <OptionsTable />
     </main>
     <DeleteModal v-if="showModal" @close="showModal = false" @confirm="confirmDelete" />

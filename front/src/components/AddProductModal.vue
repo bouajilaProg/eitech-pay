@@ -15,8 +15,7 @@
         <!-- Form -->
         <form @submit.prevent="handleSubmit">
           <div class="modal-body p-4 py-1 space-y-3 max-h-[60vh] overflow-y-auto">
-
-            <!-- Type Switch styled as tabs using Tabler classes -->
+            <!-- Type Switch styled as tabs -->
             <ul class="nav nav-tabs mb-4">
               <li class="nav-item">
                 <a href="#" class="nav-link"
@@ -34,64 +33,76 @@
               </li>
             </ul>
 
+            <!-- ID -->
             <div>
               <label for="id" class="block mb-1 font-medium text-gray-700">ID</label>
-              <input type="text" id="id" v-model="form.id" required
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+              <input type="text" id="id" v-model="form.id"
+                     class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2"
+                     :class="errors.id ? 'border-red-600 focus:ring-red-600' : 'border-gray-300 focus:ring-cyan-500'" />
+              <p v-if="errors.id" class="text-red-600 text-sm mt-1">{{ errors.id }}</p>
             </div>
 
             <!-- Name -->
             <div>
               <label for="name" class="block mb-1 font-medium text-gray-700">Name</label>
-              <input type="text" id="name" v-model="form.name" required
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+              <input type="text" id="name" v-model="form.name"
+                     class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2"
+                     :class="errors.name ? 'border-red-600 focus:ring-red-600' : 'border-gray-300 focus:ring-cyan-500'" />
+              <p v-if="errors.name" class="text-red-600 text-sm mt-1">{{ errors.name }}</p>
             </div>
 
             <!-- Description -->
             <div>
               <label for="description" class="block mb-1 font-medium text-gray-700">Description</label>
               <textarea id="description" v-model="form.description" rows="3"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
+                        class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500"></textarea>
             </div>
 
+            <!-- License Fields -->
             <div v-if="form.type === 'license'">
-              <label for="price" class="block mb-1 font-medium text-gray-700">Max Devices</label>
-              <input type="number" id="price" v-model.number="form.price" min="0" step="0.01"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" />
+              <div>
+                <label class="block mb-1 font-medium text-gray-700">Max Devices</label>
+                <input type="number" v-model.number="form.maxDevices" min="1"
+                       class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2"
+                       :class="errors.maxDevices ? 'border-red-600 focus:ring-red-600' : 'border-gray-300 focus:ring-cyan-500'" />
+                <p v-if="errors.maxDevices" class="text-red-600 text-sm mt-1">{{ errors.maxDevices }}</p>
+              </div>
+
+              <div>
+                <label class="block mb-1 font-medium text-gray-700">Duration</label>
+                <input type="number" v-model.number="form.duration" min="1"
+                       class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2"
+                       :class="errors.duration ? 'border-red-600 focus:ring-red-600' : 'border-gray-300 focus:ring-cyan-500'" />
+                <p v-if="errors.duration" class="text-red-600 text-sm mt-1">{{ errors.duration }}</p>
+              </div>
+
+              <div>
+                <label class="block mb-1 font-medium text-gray-700">Grace Period</label>
+                <input type="number" v-model.number="form.gracePeriod" min="0"
+                       class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2"
+                       :class="errors.gracePeriod ? 'border-red-600 focus:ring-red-600' : 'border-gray-300 focus:ring-cyan-500'" />
+                <p v-if="errors.gracePeriod" class="text-red-600 text-sm mt-1">{{ errors.gracePeriod }}</p>
+              </div>
+
+              <div>
+                <label class="block mb-1 font-medium text-gray-700">Price</label>
+                <input type="number" v-model.number="form.price" min="0.01" step="0.01"
+                       class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2"
+                       :class="errors.price ? 'border-red-600 focus:ring-red-600' : 'border-gray-300 focus:ring-cyan-500'" />
+                <p v-if="errors.price" class="text-red-600 text-sm mt-1">{{ errors.price }}</p>
+              </div>
             </div>
-
-            <div v-if="form.type === 'license'">
-              <label for="price" class="block mb-1 font-medium text-gray-700">Duration</label>
-              <input type="number" id="price" v-model.number="form.price" min="0" step="0.01"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" />
-            </div>
-
-            <div v-if="form.type === 'license'">
-              <label for="price" class="block mb-1 font-medium text-gray-700">Grace Period</label>
-              <input type="number" id="price" v-model.number="form.price" min="0" step="0.01"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" />
-            </div>
-
-            <!-- Price (only for license) -->
-            <div  v-if="form.type === 'license'">
-              <label for="price" class="block mb-1 font-medium text-gray-700">Price</label>
-              <input type="number" id="price" v-model.number="form.price" min="0" step="0.01"
-                class="w-full rounded border border-gray-300 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500" />
-            </div>
-
-            
-
           </div>
 
           <!-- Footer -->
           <div class="modal-footer p-4 border-t border-gray-200 flex justify-end space-x-2">
             <button type="button"
-              class="px-4 py-2 rounded border border-gray-400 text-gray-700 hover:bg-gray-100"
-              @click="close">
+                    class="px-4 py-2 rounded border border-gray-400 text-gray-700 hover:bg-gray-100"
+                    @click="close">
               Cancel
             </button>
             <button type="submit"
-              class="px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600">
+                    class="px-4 py-2 rounded bg-cyan-500 text-white hover:bg-cyan-600">
               Submit
             </button>
           </div>
@@ -107,24 +118,46 @@ import { reactive, defineEmits } from "vue";
 const emit = defineEmits(["close", "submit"]);
 
 const form = reactive({
+  id: "",
   name: "",
   description: "",
-  type: "license", // Default type
+  type: "license",
+  maxDevices: null,
+  duration: null,
+  gracePeriod: null,
+  price: null,
 });
+
+const errors = reactive({});
+
+function validateForm() {
+  Object.keys(errors).forEach((key) => delete errors[key]);
+
+  if (!form.id.trim()) errors.id = "ID is required.";
+  if (!form.name.trim()) errors.name = "Name is required.";
+
+  if (form.type === "license") {
+    if (form.maxDevices == null || form.maxDevices <= 0)
+      errors.maxDevices = "Max Devices must be greater than 0.";
+    if (form.duration == null || form.duration <= 0)
+      errors.duration = "Duration must be greater than 0.";
+    if (form.gracePeriod == null || form.gracePeriod < 0)
+      errors.gracePeriod = "Grace Period must be 0 or more.";
+    if (form.price == null || form.price <= 0)
+      errors.price = "Price must be greater than 0.";
+  }
+
+  return Object.keys(errors).length === 0;
+}
 
 function close() {
   emit("close");
 }
 
 function handleSubmit() {
-  console.log("Product submitted:", { ...form });
+  if (!validateForm()) return;
+
   emit("submit", { ...form });
   close();
 }
 </script>
-
-<!-- Add Tabler CSS to your main HTML entry or layout -->
-<!-- Add this in your index.html if you haven't already -->
-<!--
-<link href="https://unpkg.com/@tabler/core@latest/dist/css/tabler.min.css" rel="stylesheet">
--->
