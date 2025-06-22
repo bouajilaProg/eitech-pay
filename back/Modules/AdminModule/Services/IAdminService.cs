@@ -1,4 +1,3 @@
-
 namespace AdminModule.Services
 {
     public interface IAdminService

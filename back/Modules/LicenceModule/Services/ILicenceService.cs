@@ -2,7 +2,11 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Back.Models.LicenceRelated;
+using Back.Models.General;
+
 using Back.Modules.LicenceModule.Dtos;
+
+
 
 
 namespace Back.Modules.LicenceModule.Services
@@ -22,7 +26,21 @@ namespace Back.Modules.LicenceModule.Services
         Task<bool> UpdateAsync(Licence licence);
 
         // Soft delete a license by ID (set is_archived = true)
-        Task<bool> DeleteAsync(string licenceId);
+        Task<bool> DeleteAsync(string licenceId)
+
+        // get revenue by id
+        Task<MonthlyRevenue?> GetRevenueByIdAsync(string productId);
+
+        // get all revenues
+        Task<IEnumerable<MonthlyRevenue>> GetAllRevenuesAsync();
+
+        // insert revenue
+        Task<string> InsertRevenueAsync(MonthlyRevenue revenue);
+
+
+        // get stats
+        Task<Stats> GetStatsAsync();
+        
 
 
     }  
