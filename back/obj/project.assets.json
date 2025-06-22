@@ -2625,19 +2625,19 @@
     ]
   },
   "packageFolders": {
-    "/home/bouajila/.nuget/packages/": {}
+    "/home/ahmed/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/bouajila/projects/working/study/pfe-vue-front/back/back.csproj",
+      "projectUniqueName": "/home/ahmed/my_stuff/git_clones/eitech-pay/back/back.csproj",
       "projectName": "back",
-      "projectPath": "/home/bouajila/projects/working/study/pfe-vue-front/back/back.csproj",
-      "packagesPath": "/home/bouajila/.nuget/packages/",
-      "outputPath": "/home/bouajila/projects/working/study/pfe-vue-front/back/obj/",
+      "projectPath": "/home/ahmed/my_stuff/git_clones/eitech-pay/back/back.csproj",
+      "packagesPath": "/home/ahmed/.nuget/packages/",
+      "outputPath": "/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/home/bouajila/.nuget/NuGet/NuGet.Config"
+        "/home/ahmed/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net9.0"
@@ -2661,7 +2661,7 @@
         "auditLevel": "low",
         "auditMode": "direct"
       },
-      "SdkAnalysisLevel": "9.0.100"
+      "SdkAnalysisLevel": "9.0.200"
     },
     "frameworks": {
       "net9.0": {
@@ -2711,7 +2711,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/share/dotnet/sdk/9.0.102/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/nix/store/b75pba26yhms26mnvqiy6g72k0q9psgb-dotnet-sdk-9.0.200/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

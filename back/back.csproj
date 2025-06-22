@@ -10,6 +10,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+  <Compile Remove="Modules/LicenceModule/**" />
+  <Compile Remove="Modules/SubscriptionModule/**" />
+  <Compile Remove="Modules/PublicModule/**" />
+  <Compile Remove="Modules/GeneralServices/**" />
+</ItemGroup>
+<ItemGroup>
+  <Content Include="Modules/Notification/Templates/**/*.html">
+    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+  </Content>
+</ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.66" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.3.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.2" />
