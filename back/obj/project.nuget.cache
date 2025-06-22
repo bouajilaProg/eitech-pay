@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "B3dDoqUvHUo=",
   "success": true,
   "projectFilePath": "/home/ahmed/my_stuff/git_clones/eitech-pay/back/back.csproj",
+=======
+  "dgSpecHash": "lRn6MGePTgY=",
+  "success": true,
+  "projectFilePath": "/home/bouajila/projects/working/study/pfe/back/back.csproj",
+>>>>>>> upstream/main
   "expectedPackageFiles": [
     "/home/ahmed/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/ahmed/.nuget/packages/bouncycastle.cryptography/2.3.1/bouncycastle.cryptography.2.3.1.nupkg.sha512",

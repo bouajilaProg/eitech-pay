@@ -1,10 +1,13 @@
+using Back.Models.LicenceRelated;
 using System.Collections.Generic;
 
-namespace Back.Models.LicenceRelated
+namespace Back.Modules.LicenceModule.Dtos
 {
-    public class LicenceDetailedDto
+    public class LicenceDetailsDto
     {
         public string LicenceId { get; set; }
+        public string Name { get; set; } = null!;
+        public string Description { get; set; } = null!;
         public int MaxDevices { get; set; }
         public int Duration { get; set; }
         public int GracePeriod { get; set; }

@@ -8,4 +8,4 @@ public class LicenceOption
     public string Description { get; set; } = null!;
     public decimal Price { get; set; }
     public bool IsArchived { get; set; }
-}
+} 

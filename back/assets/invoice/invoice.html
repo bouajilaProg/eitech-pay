@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Invoice</title>
+  <link rel="stylesheet" href="invoice.css">
+</head>
+<body>
+  <div class="invoice-box">
+    <div class="invoice-header">
+      <div>
+        <h1>Invoice</h1>
+        <p><strong>Invoice #:</strong> INV-001<br>
+        <strong>Date:</strong> June 7, 2025</p>
+      </div>
+      <div>
+        <p><strong>From:</strong><br>
+        EITECH<br>
+        contact@eitech.com.tn<br>
+        +216 20 823 221</p>
+      </div>
+    </div>
+
+    <p><strong>To:</strong><br>
+    Mokhtar Louati<br>
+    mokhtar@email.com<br>
+    +216 98 765 432</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Description</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Example Product (Software)</td>
+          <td>1</td>
+          <td>500 TND</td>
+          <td>500 TND</td>
+        </tr>
+        <tr>
+          <td>Tax (19%)</td>
+          <td></td>
+          <td></td>
+          <td>95 TND</td>
+        </tr>
+        <tr class="total-row">
+          <td colspan="3" align="right">Total</td>
+          <td>595 TND</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="invoice-footer">
+      Thank you for your business!<br>
+    </div>
+
+   
+  </div>
+</body>
+</html>

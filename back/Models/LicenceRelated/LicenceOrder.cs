@@ -15,5 +15,6 @@ public class LicenceOrder
     public string PrivateKey { get; set; } = null!;
     public DateTime PurchaseDate { get; set; }
     public LicenceOrderStatus Status { get; set; }
+    public string Reseller{ get; set; } = null!;
     public bool IsArchived { get; set; }
 }

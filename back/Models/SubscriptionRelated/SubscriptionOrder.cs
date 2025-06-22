@@ -9,7 +9,7 @@ public enum SubscriptionOrderStatus
 
 public class SubscriptionOrder
 {
-    public int Id { get; set; }
+    public int OrderId { get; set; }
     public string SubscriptionId { get; set; }
     public string SubscriptionTierId { get; set; }
 
@@ -18,5 +18,6 @@ public class SubscriptionOrder
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public SubscriptionOrderStatus Status { get; set; }
+    public string Reseller { get; set; } = null!;
     public bool IsArchived { get; set; }
 }

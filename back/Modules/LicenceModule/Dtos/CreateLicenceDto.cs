@@ -1,4 +1,3 @@
-
 namespace Back.Modules.LicenceModule.Dtos;
 
 public class CreateLicenceDto

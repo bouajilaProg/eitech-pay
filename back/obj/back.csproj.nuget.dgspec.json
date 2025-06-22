@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "/home/ahmed/my_stuff/git_clones/eitech-pay/back/back.csproj": {}
   },
   "projects": {
@@ -12,6 +13,19 @@
         "projectPath": "/home/ahmed/my_stuff/git_clones/eitech-pay/back/back.csproj",
         "packagesPath": "/home/ahmed/.nuget/packages/",
         "outputPath": "/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/",
+=======
+    "/home/bouajila/projects/working/study/pfe/back/back.csproj": {}
+  },
+  "projects": {
+    "/home/bouajila/projects/working/study/pfe/back/back.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/bouajila/projects/working/study/pfe/back/back.csproj",
+        "projectName": "back",
+        "projectPath": "/home/bouajila/projects/working/study/pfe/back/back.csproj",
+        "packagesPath": "/home/bouajila/.nuget/packages/",
+        "outputPath": "/home/bouajila/projects/working/study/pfe/back/obj/",
+>>>>>>> upstream/main
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/home/ahmed/.nuget/NuGet/NuGet.Config"
