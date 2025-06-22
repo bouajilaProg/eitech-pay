@@ -18,13 +18,6 @@
               <option value="yearly">Yearly</option>
             </select>
           </div>
-          <div>
-            <select v-model="selectedRange" class="form-select form-select-md">
-              <option value="7">Last 7 months</option>
-              <option value="12">Last 12 months</option>
-              <option value="24">Last 24 months</option>
-            </select>
-          </div>
         </div>
       </div>
     </div>

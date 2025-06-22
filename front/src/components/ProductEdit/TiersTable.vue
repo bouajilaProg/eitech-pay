@@ -3,7 +3,7 @@
     <div class="card-header flex justify-between items-center">
       <h3 class="card-title mb-0">Tiers</h3>
       <button class="btn btn-primary bg-[#30d5c8] px-4 py-2 rounded text-white hover:bg-[#2bc2b5]"
-        @click="showModal = true">
+        @click="showAddModal = true">
         Add Tier
       </button>
     </div>
@@ -16,6 +16,7 @@
             <th>Name</th>
             <th>Duration</th>
             <th>Price (TND)</th>
+            <th>Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -28,7 +29,6 @@
               <input type="text" v-model="tier.name"
                 class="w-full border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#30d5c8]" />
             </td>
-            
             <td>
               <input type="text" v-model="tier.duration"
                 class="w-full border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#30d5c8]" />
@@ -38,20 +38,33 @@
                 class="w-full border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-[#30d5c8]"
                 min="0" />
             </td>
+            <td class="text-center">
+              <button @click="openDeleteModal(index)" class="transition-opacity duration-200 hover:opacity-70 p-1">
+                <CgTrash class="w-5 h-5 text-red-600" />
+              </button>
+            </td>
           </tr>
         </tbody>
       </table>
     </div>
   </div>
+  <DeleteModal
+      v-if="showDeleteModal"
+      @close="showDeleteModal = false"
+      @confirm="confirmDeleteTier"
+    />
 
   <!-- Add Tier Modal -->
-  <AddTierModal v-if="showModal" @close="showModal = false" @add-tier="handleAddTier" />
+  <AddTierModal v-if="showAddModal" @close="showAddModal = false" @add-tier="handleAddTier" />
 </template>
+
 
 <script setup>
 import { ref } from 'vue'
 import AddTierModal from './AddTierModal.vue'
 import { productsData } from '../../temp-data.ts'
+import DeleteModal from '../ProductPage/DeleteModal.vue'
+import { CgTrash } from 'vue-icons-plus/cg'
 
 const tiers = ref(
   productsData.find(p => p.id === 'learnito_web_1')?.tiers || [
@@ -61,10 +74,25 @@ const tiers = ref(
   ]
 )
 
-const showModal = ref(false)
+const showAddModal = ref(false)
+const showDeleteModal = ref(false)
+const tierToDeleteIndex = ref(null)
 
 function handleAddTier(newTier) {
   tiers.value.push(newTier)
-  showModal.value = false
+  showAddModal.value = false
+}
+
+function openDeleteModal(index) {
+  tierToDeleteIndex.value = index
+  showDeleteModal.value = true
+}
+
+function confirmDeleteTier() {
+  if (tierToDeleteIndex.value !== null) {
+    tiers.value.splice(tierToDeleteIndex.value, 1)
+    tierToDeleteIndex.value = null
+  }
+  showDeleteModal.value = false
 }
 </script>

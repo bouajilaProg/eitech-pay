@@ -7,9 +7,9 @@
 
       <div v-if="route.path !== '/login'" class="navbar-nav flex-row order-md-last">
         <div class="nav-item d-none d-md-flex me-3">
-          <RouterLink to="/docs" class="nav-link">
-            <strong>Docs</strong>
-          </RouterLink>
+          <a href="/docs" target="_blank" class="nav-link">
+  <strong>Docs</strong>
+</a>
         </div>
 
         <div class="nav-item d-none d-md-flex me-3">
