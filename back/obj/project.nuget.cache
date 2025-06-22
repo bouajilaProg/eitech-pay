@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Ejwmy7GXPbY=",
+  "dgSpecHash": "lRn6MGePTgY=",
   "success": true,
-  "projectFilePath": "/home/bouajila/projects/working/study/pfe-vue-front/back/back.csproj",
+  "projectFilePath": "/home/bouajila/projects/working/study/pfe/back/back.csproj",
   "expectedPackageFiles": [
     "/home/bouajila/.nuget/packages/bcrypt.net-next/4.0.3/bcrypt.net-next.4.0.3.nupkg.sha512",
     "/home/bouajila/.nuget/packages/bouncycastle.cryptography/2.3.1/bouncycastle.cryptography.2.3.1.nupkg.sha512",

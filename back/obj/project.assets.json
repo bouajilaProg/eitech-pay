@@ -2630,11 +2630,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/home/bouajila/projects/working/study/pfe-vue-front/back/back.csproj",
+      "projectUniqueName": "/home/bouajila/projects/working/study/pfe/back/back.csproj",
       "projectName": "back",
-      "projectPath": "/home/bouajila/projects/working/study/pfe-vue-front/back/back.csproj",
+      "projectPath": "/home/bouajila/projects/working/study/pfe/back/back.csproj",
       "packagesPath": "/home/bouajila/.nuget/packages/",
-      "outputPath": "/home/bouajila/projects/working/study/pfe-vue-front/back/obj/",
+      "outputPath": "/home/bouajila/projects/working/study/pfe/back/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/home/bouajila/.nuget/NuGet/NuGet.Config"
