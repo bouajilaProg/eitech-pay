@@ -3,7 +3,7 @@ namespace Back.Modules.AdminModule.Services
     public interface IAdminService
     {
         string Login(string username, string password);
-        bool CheckToken(string token);
+        public (string AdminId, string AdminName) CheckToken(string token);
 
         void ChangePassword(string oldpasswd, string newpasswd);
         void ChangePaymentDetails(string apiKey, string konnectId);

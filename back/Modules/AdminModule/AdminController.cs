@@ -2,6 +2,12 @@ using Microsoft.AspNetCore.Mvc;
 using Back.Modules.AdminModule.Services; 
 using Back.Modules.AdminModule.Dtos;
 
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
+using System.Text.Json;
+
+
+
 
 namespace Back.Modules.AdminModule
 {
@@ -15,6 +21,33 @@ namespace Back.Modules.AdminModule
         {
             _adminService = adminService;
         }
+
+
+
+    [HttpPost("decode-token")]
+    public ActionResult<object> DecodeToken([FromBody] string token)
+    {
+        try
+        {
+            var handler = new JwtSecurityTokenHandler();
+
+            // Parse token without signature validation
+            var jwtToken = handler.ReadJwtToken(token);
+
+            var claims = jwtToken.Claims.ToDictionary(c => c.Type, c => (object)c.Value);
+
+            return Ok(claims);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest(new
+            {
+                error = "Invalid JWT format.",
+                message = ex.Message
+            });
+        }
+    }
+
 
         [HttpPost("login")]
         public ActionResult<string> Login([FromBody] LoginRequestDto loginDto)
@@ -31,23 +64,28 @@ namespace Back.Modules.AdminModule
         }
 
         [HttpPost("check-token")]
-        public ActionResult<bool> CheckToken(string token)
+        public ActionResult CheckToken([FromBody]string token)
         {
-            var isValid = _adminService.CheckToken(token);
-            return Ok(isValid);
+          var Result = _adminService.CheckToken(token);
+          return Ok(new
+          {
+              AdminId = Result.AdminId,
+              AdminName = Result.AdminName
+          });
+
         }
 
         [HttpPost("change-password")]
-        public IActionResult ChangePassword(string oldpasswd, string newpasswd)
+        public IActionResult ChangePassword([FromBody] ChangePasswordDto dto)
         {
-            _adminService.ChangePassword(oldpasswd, newpasswd);
+            _adminService.ChangePassword(dto.OldPassword, dto.NewPassword);
             return NoContent();
         }
 
         [HttpPost("change-payment-details")]
-        public IActionResult ChangePaymentDetails(string apiKey, string konnectId)
+        public IActionResult ChangePaymentDetails([FromBody] ChangePaymentDetailsDto dto)
         {
-            _adminService.ChangePaymentDetails(apiKey, konnectId);
+            _adminService.ChangePaymentDetails(dto.ApiKey, dto.KonnectId);
             return NoContent();
         }
     }

@@ -119,3 +119,4 @@
 /home/bouajila/projects/working/study/pfe/back/bin/Debug/net9.0/Microsoft.IdentityModel.Logging.dll
 /home/bouajila/projects/working/study/pfe/back/bin/Debug/net9.0/Microsoft.IdentityModel.Tokens.dll
 /home/bouajila/projects/working/study/pfe/back/bin/Debug/net9.0/System.IdentityModel.Tokens.Jwt.dll
+/home/bouajila/projects/working/study/pfe/back/bin/Debug/net9.0/utils/config.json

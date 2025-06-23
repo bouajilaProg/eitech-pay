@@ -32,41 +32,46 @@ namespace Back.Modules.AdminModule.Services
             return GenerateJwtToken(admin);
         }
 
-        public bool CheckToken(string token)
+       
+     
+        public (string AdminId, string AdminName) CheckToken(string token)
         {
-            try
-            {
-                var tokenHandler = new JwtSecurityTokenHandler();
-                var key = Encoding.UTF8.GetBytes(_jwtSecret);
+            var tokenHandler = new JwtSecurityTokenHandler();
+            var key = Encoding.UTF8.GetBytes(_jwtSecret);
 
-                tokenHandler.ValidateToken(token, new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false,
-                    ClockSkew = TimeSpan.Zero
-                }, out _);
-
-                return true;
-            }
-            catch
+            var principal = tokenHandler.ValidateToken(token, new TokenValidationParameters
             {
-                return false;
+                ValidateIssuerSigningKey = true,
+                IssuerSigningKey = new SymmetricSecurityKey(key),
+                ValidateIssuer = false,
+                ValidateAudience = false,
+                ClockSkew = TimeSpan.Zero
+            }, out _);
+
+            var AdminId = principal.FindFirst("AdminId")?.Value;
+            var AdminName = principal.FindFirst("AdminName")?.Value;
+
+            Console.WriteLine($"AdminId: {AdminId}, AdminName: {AdminName}");
+
+            if (string.IsNullOrEmpty(AdminId) || string.IsNullOrEmpty(AdminName))
+            {
+                throw new SecurityTokenException("Required claims missing.");
             }
+
+            return (AdminId, AdminName);
         }
+
 
         public void ChangePassword(string oldpasswd, string newpasswd)
         {
-            const string query = "SELECT * FROM Admin WHERE is_archived = false LIMIT 1";
+            const string query = "SELECT * FROM admin WHERE is_archived = false LIMIT 1";
             var admin = _db.QueryFirstOrDefault<Admin>(query);
 
             if (admin == null || !VerifyPassword(oldpasswd, admin.Password))
                 throw new UnauthorizedAccessException("Incorrect current password");
 
-            string newHash = HashPassword(newpasswd);
-            _db.Execute("UPDATE Admin SET Password = @Password WHERE admin_id = @AdminId",
-                new { Password = newHash, admin.AdminId });
+            _db.Execute("UPDATE admin SET Password = @Password WHERE admin_id = @AdminId",
+                new { Password = newpasswd, admin.AdminId });
         }
 
         public void ChangePaymentDetails(string apiKey, string konnectId)
@@ -74,7 +79,7 @@ namespace Back.Modules.AdminModule.Services
             if (!ValidateApiKey(apiKey) || !ValidateKonnectId(konnectId))
                 throw new ArgumentException("Invalid API Key or Konnect ID");
 
-            const string query = "UPDATE Admin SET api_key = @ApiKey WHERE is_archived= false";
+            const string query = "UPDATE admin SET api_key = @ApiKey WHERE is_archived= false";
             _db.Execute(query, new { ApiKey = apiKey });
         }
 
@@ -111,16 +116,20 @@ namespace Back.Modules.AdminModule.Services
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new[] {
-                    new Claim(ClaimTypes.NameIdentifier, admin.AdminId.ToString()),
-                    new Claim(ClaimTypes.Name, admin.Username)
+                    new Claim("AdminId", admin.AdminId.ToString()),
+                    new Claim("AdminName", admin.Username)
                 }),
                 Expires = DateTime.UtcNow.AddHours(12),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
+                SigningCredentials = new SigningCredentials(
+                    new SymmetricSecurityKey(key),
+                    SecurityAlgorithms.HmacSha256Signature
+                )
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
             return tokenHandler.WriteToken(token);
         }
+
 
         private string HashPassword(string password)
         {
@@ -131,7 +140,7 @@ namespace Back.Modules.AdminModule.Services
 
         private bool VerifyPassword(string input, string hashed)
         {
-            return HashPassword(input) == hashed;
+            return input == hashed;
         }
     }
 }
