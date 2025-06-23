@@ -1,43 +1,39 @@
 import { defineStore } from 'pinia';
-import { ref, computed } from 'vue';
-import { authService, type LoginInput } from '../services/auth.service';
+import { authService } from '../services/auth.service';
 
-export const useAuthStore = defineStore('auth', () => {
-  const token = ref<string | null>(localStorage.getItem('auth_token'));
-  const loginAttempts = ref<number>(0);
-  const isCaptchaRequired = computed(() => loginAttempts.value >= 3);
-  const isAuthenticated = computed(() => !!token.value);
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    adminName: null as string | null,
+    isLoggedIn: false,
+    loading: false,
+  }),
 
-  async function login(payload: LoginInput): Promise<boolean> {
-    try {
-      const response = await authService.login(payload);
-      token.value = response.token;
-      localStorage.setItem('auth_token', response.token);
-      loginAttempts.value = 0;
-      return true;
-    } catch (error) {
-      loginAttempts.value++;
-      return false;
+  actions: {
+    async login(username: string, password: string, captcha?: string) {
+      this.loading = true;
+      try {
+        const res = await authService.login({ username, password, captcha });
+        this.isLoggedIn = true;
+        this.adminName = res.adminName ?? null;
+      } finally {
+        this.loading = false;
+      }
+    },
+
+    logout() {
+      authService.logout();
+      this.isLoggedIn = false;
+      this.adminName = null;
+    },
+
+    async restoreSession() {
+      try {
+        const res = await authService.checkSession();
+        this.adminName = res.adminName;
+        this.isLoggedIn = true;
+      } catch {
+        this.logout();
+      }
     }
   }
-
-  function logout() {
-    token.value = null;
-    localStorage.removeItem('auth_token');
-    authService.logout();
-  }
-
-  function resetLoginAttempts() {
-    loginAttempts.value = 0;
-  }
-
-  return {
-    token,
-    login,
-    logout,
-    loginAttempts,
-    isCaptchaRequired,
-    isAuthenticated,
-    resetLoginAttempts,
-  };
 });

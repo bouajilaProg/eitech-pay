@@ -3,7 +3,7 @@ import axios, {
     type InternalAxiosRequestConfig
   } from 'axios';
   
-  const API_URL = 'http://localhost:5225/api';
+  const API_URL = 'http://localhost:5080/api';
   const TOKEN_KEY = 'auth_token';
   
   function getAuthToken(): string | null {

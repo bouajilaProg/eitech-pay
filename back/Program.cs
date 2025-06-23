@@ -6,10 +6,6 @@ using Back.Modules.SubscriptionModule.Services;
 using Back.Modules.AdminModule.Services;
 
 
-// using Back.Modules.LicenceModule.Services;
-// using Back.Modules.PublicModule.Services;
-// using Back.Modules.GeneralServices;
-// using Back.Modules.SubscriptionModule.Services;
 using Back.Modules.Notification.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -34,18 +30,20 @@ builder.Services.AddScoped<ITiersService, TiersService>();
 builder.Services.AddScoped<ILicenceService, LicenceService>();
 builder.Services.AddScoped<ILicenceOptionService, LicenceOptionService>();
 
+builder.Services.AddScoped<IAdminService, AdminService>();
+
 /*builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<ITiersService, TiersService>();
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();*/
 
 builder.Services.AddScoped<INotificationService, NotificationService>();
 
-// Add controllers and OpenAPI
-// builder.Services.AddControllers();
-// builder.Services.AddOpenApi();
-// builder.Services.AddControllers();
-// builder.Services.AddEndpointsApiExplorer();
-// builder.Services.AddSwaggerGen();
+
+builder.Services.AddControllers();
+builder.Services.AddOpenApi();
+builder.Services.AddControllers();
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 
 
 // builder.Services.AddSwaggerGen(options =>
@@ -54,7 +52,21 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 //     options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xmlFilename));
 // });
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAll", policy =>
+    {
+        policy
+            .AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
+
+app.UseCors("AllowAll");
 
 if (args.Length > 0)
 {

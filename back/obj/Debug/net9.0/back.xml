@@ -4,8 +4,6 @@
         <name>back</name>
     </assembly>
     <members>
-<<<<<<< HEAD
-=======
         <member name="T:Back.Modules.LicenceModule.LicenceController">
             <summary>
             Controller responsible for managing Licences and their associated options.
@@ -118,6 +116,5 @@
             Soft delete a subscription tier by ID.
             </summary>
         </member>
->>>>>>> upstream/main
     </members>
 </doc>

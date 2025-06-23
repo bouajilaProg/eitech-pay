@@ -9,17 +9,7 @@
     <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
 
-  <ItemGroup>
-  <Compile Remove="Modules/LicenceModule/**" />
-  <Compile Remove="Modules/SubscriptionModule/**" />
-  <Compile Remove="Modules/PublicModule/**" />
-  <Compile Remove="Modules/GeneralServices/**" />
-</ItemGroup>
-<ItemGroup>
-  <Content Include="Modules/Notification/Templates/**/*.html">
-    <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-  </Content>
-</ItemGroup>
+
 
 
   <ItemGroup>

@@ -2,9 +2,7 @@
   <div class="page page-center d-flex flex-column">
     <div class="container-tight py-4">
       <div class="text-center mb-4">
-        <a href="#" class="navbar-brand navbar-brand-autodark">
-          <!-- <img src="https://tabler.io/static/logo.svg" height="36" alt="Logo" /> -->
-        </a>
+        <a href="#" class="navbar-brand navbar-brand-autodark">Logo</a>
       </div>
 
       <form class="card card-md" @submit.prevent="handleSubmit">
@@ -12,79 +10,119 @@
           <h2 class="card-title text-center mb-4">Login to your account</h2>
 
           <div class="mb-3">
-            <label class="form-label">Email address</label>
-            <input v-model="form.email" type="email" class="form-control" placeholder="Enter email" required />
+            <label class="form-label">Username</label>
+            <input
+              v-model="form.username"
+              type="text"
+              class="form-control"
+              placeholder="Enter username"
+              required
+            />
           </div>
 
           <div class="mb-2">
             <label class="form-label">Password</label>
-            <input v-model="form.password" type="password" class="form-control" placeholder="Password" required />
+            <input
+              v-model="form.password"
+              type="password"
+              class="form-control"
+              placeholder="Password"
+              required
+            />
             <span class="form-label-description mb-4">
               <a href="#">I forgot password</a>
             </span>
           </div>
 
-          <div class="mb-4">
+          <div class="mb-3">
             <label class="form-check">
-              <input v-model="form.remember" type="checkbox" class="form-check-input" />
+              <input
+                v-model="form.remember"
+                type="checkbox"
+                class="form-check-input"
+              />
               <span class="form-check-label">Remember me</span>
             </label>
           </div>
 
+          <!-- CAPTCHA shown only after 3 failed attempts -->
+          <div class="mb-3" v-if="captchaEnabled">
+            <VueRecaptcha
+              ref="recaptcha"
+              :sitekey="recaptchaSiteKey"
+              @verify="onCaptchaVerified"
+              @expired="onCaptchaExpired"
+            />
+          </div>
+
           <div class="form-footer">
-            <button type="submit" class="btn btn-primary w-100">Sign in</button>
+            <button
+              type="submit"
+              class="btn btn-primary w-100"
+              :disabled="loading"
+            >
+              {{ loading ? 'Signing in...' : 'Sign in' }}
+            </button>
           </div>
         </div>
       </form>
-
-      <!-- <div class="text-center text-muted mt-3">
-        Don't have account yet?
-        <a href="register.html" tabindex="-1">Sign up</a>
-      </div> -->
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { reactive, onMounted } from 'vue'
+import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
-import { loginService } from '../services/login.service.ts'
+import { useAuthStore } from '../store/auth'
+// @ts-ignore
+import VueRecaptcha from 'vue3-recaptcha2';
 
 const router = useRouter()
+const auth = useAuthStore()
+const loading = ref(false)
+
+const recaptchaSiteKey = '6Lfq_morAAAAAAXrss0x8-HqyvrAGVZs5OgTPOwZ'
 
 const form = reactive({
-  email: '',
+  username: '',
   password: '',
   remember: false
 })
 
-const handleSubmit = async () => {
-  try {
-    const { token, adminName } = await loginService.login({
-      email: form.email,
-      password: form.password
-    })
+const failedAttempts = ref(0)
+const captchaToken = ref('')
+const recaptcha = ref<InstanceType<typeof VueRecaptcha> | null>(null)
 
-    console.log('Logged in as:', adminName)
+const captchaEnabled = computed(() => failedAttempts.value >= 3)
 
-    if (form.remember) {
-      // optional: save to localStorage (already handled in the service)
-    }
-
-    router.push('/dashboard')
-  } catch (err) {
-    console.error('Login failed:', err)
-    alert('Invalid credentials.')
-  }
+const onCaptchaVerified = (token: string) => {
+  captchaToken.value = token
 }
 
-onMounted(async () => {
-  try {
-    const session = await loginService.checkSession()
-    console.log('Already logged in as:', session.adminName)
-    router.push('/dashboard')
-  } catch {
-    // Not logged in — stay on login page
+const onCaptchaExpired = () => {
+  captchaToken.value = ''
+  recaptcha.value?.reset()
+}
+
+const handleSubmit = async () => {
+  if (captchaEnabled.value && !captchaToken.value) {
+    alert('Please complete the CAPTCHA')
+    return
   }
-})
+
+  loading.value = true
+  try {
+    await auth.login(form.username, form.password, captchaToken.value)
+    router.push('/dashboard')
+  } catch (error: any) {
+    failedAttempts.value += 1
+    if (captchaEnabled.value) {
+      recaptcha.value?.reset()
+      captchaToken.value = ''
+    }
+    alert(error?.message || 'Login failed')
+  } finally {
+    loading.value = false
+  }
+}
 </script>

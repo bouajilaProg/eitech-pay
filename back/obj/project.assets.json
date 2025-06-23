@@ -2918,5 +2918,13 @@
         "runtimeIdentifierGraphPath": "/nix/store/b75pba26yhms26mnvqiy6g72k0q9psgb-dotnet-sdk-9.0.200/share/dotnet/sdk/9.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problem reading the cache file /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/project.nuget.cache : Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
