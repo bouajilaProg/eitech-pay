@@ -18,18 +18,18 @@
   - activate licence
 
 
-- admin
+- admin V
   - login *11
   - checktoken *12
   - change password *13
   - change payment details * 14
   - generate APiKey * 15
-  - validate konnect * 16
+  - validate konnect * 16 X
   - validate password * 17
   - validate apikey *18
 
 - notification 
-   - send licence invoice
-   - send subscription invoice
-   - send payment reminder
-   - send account suspended
+   - send licence invoice V
+   - send subscription invoice V
+   - send payment reminder V
+   - send account suspended V

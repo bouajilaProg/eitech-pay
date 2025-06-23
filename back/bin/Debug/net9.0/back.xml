@@ -86,6 +86,13 @@
             <param name="id">The ID of the option to delete.</param>
             <returns>No content if successful; otherwise, NotFound.</returns>
         </member>
+        <member name="M:Back.Modules.LicenceModule.Controllers.LicencePublicController.GetLicenceDetails(System.String)">
+            <summary>
+            Get the details of a licence by its ID.
+            </summary>
+            <param name="licenceId">The unique ID of the licence</param>
+            <returns>Licence details if found and not archived; otherwise, 404</returns>
+        </member>
         <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.GetAllTiers">
             <summary>
             Get all subscription tiers (not archived).

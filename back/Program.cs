@@ -24,9 +24,11 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 // DI for services
 builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<ITiersService, TiersService>();
+builder.Services.AddScoped<ISubscriptionPublicService, SubscriptionPublicService>();
 
 builder.Services.AddScoped<ILicenceService, LicenceService>();
 builder.Services.AddScoped<ILicenceOptionService, LicenceOptionService>();
+builder.Services.AddScoped<IlicencePublicService, LicencePublicService>();
 
 builder.Services.AddScoped<IAdminService, AdminService>();
 
