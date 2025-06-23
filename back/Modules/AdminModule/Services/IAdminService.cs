@@ -8,6 +8,8 @@ namespace Back.Modules.AdminModule.Services
         void ChangePassword(string oldpasswd, string newpasswd);
         void ChangePaymentDetails(string apiKey, string konnectId);
 
+
+        public string GetApiKey(int adminId);
         string GenerateApiKey();
         bool ValidateKonnectId(string konnectId);
         bool ValidatePassword(string password);

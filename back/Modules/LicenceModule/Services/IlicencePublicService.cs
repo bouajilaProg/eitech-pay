@@ -17,7 +17,7 @@ namespace Back.Modules.LicenceModule.Services
       Task<LicenceDetailsDto?> CheckLicenceAsync(string licenceKey,string device_print,int userId);
 
       // get licence details
-
+      Task<LicenceDetailsDto?> GetLicenceDetailsAsync(string LicenceId);
 
 
     }
