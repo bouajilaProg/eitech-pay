@@ -18,7 +18,7 @@ namespace Back.Modules.LicenceModule.Services
         public async Task<LicenceOption?> GetByIdAsync(string optionId)
         {
             const string query = @"
-                SELECT * FROM licence_options
+                SELECT * FROM licence_option
                 WHERE option_id = @OptionId AND is_archived = false;
             ";
 
@@ -28,7 +28,7 @@ namespace Back.Modules.LicenceModule.Services
         public async Task<IEnumerable<LicenceOption>> GetAllAsync()
         {
             const string query = @"
-                SELECT * FROM licence_options
+                SELECT * FROM licence_option
                 WHERE is_archived = false;
             ";
 
@@ -38,7 +38,7 @@ namespace Back.Modules.LicenceModule.Services
         public async Task<IEnumerable<LicenceOption>> GetByLicenceIdAsync(string licenceId)
         {
             const string query = @"
-                SELECT * FROM licence_options
+                SELECT * FROM licence_option
                 WHERE licence_id = @LicenceId AND is_archived = false;
             ";
 
@@ -48,7 +48,7 @@ namespace Back.Modules.LicenceModule.Services
         public async Task<string> CreateAsync(LicenceOption option)
         {
             const string query = @"
-                INSERT INTO licence_options (option_id,licence_id, option_name, description, price, is_archived)
+                INSERT INTO licence_option (option_id,licence_id, option_name, description, price, is_archived)
                 VALUES (@OptionId,@LicenceId, @OptionName, @Description, @Price, false);
                 SELECT LAST_INSERT_ID();
             ";
@@ -59,7 +59,7 @@ namespace Back.Modules.LicenceModule.Services
         public async Task<bool> UpdateAsync(LicenceOption option)
         {
             const string query = @"
-                UPDATE licence_options
+                UPDATE licence_option
                 SET licence_id = @LicenceId,
                     option_name = @OptionName,
                     description = @Description,
@@ -74,7 +74,7 @@ namespace Back.Modules.LicenceModule.Services
         public async Task<bool> DeleteAsync(string optionId)
         {
             const string query = @"
-                UPDATE licence_options
+                UPDATE licence_option
                 SET is_archived = true
                 WHERE option_id = @OptionId AND is_archived = false;
             ";

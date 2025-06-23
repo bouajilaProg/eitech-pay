@@ -1,11 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Back.Models.General; // Assuming Product is here
-using Back.Models.SubscriptionRelated; // Assuming SubscriptionTier is here
+using Back.Models.SubscriptionRelated;
 using Back.Modules.SubscriptionModule.Services;
 
-namespace Back.Module.SubscriptionModule
+namespace Back.Modules.SubscriptionModule
 {
     [ApiController]
     [Route("subscription")]
@@ -19,50 +18,47 @@ namespace Back.Module.SubscriptionModule
         }
 
         /// <summary>
-        /// Get all subscription products.
+        /// Get all subscriptions.
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Product>>> GetAll()
+        public async Task<ActionResult<IEnumerable<Subscription>>> GetAll()
         {
-            var products = await _subscriptionService.GetAllAsync();
-            return Ok(products);
+            var subscriptions = await _subscriptionService.GetAllAsync();
+            return Ok(subscriptions);
         }
 
         /// <summary>
-        /// Get a subscription product by ID.
+        /// Get a subscription by ID.
         /// </summary>
-        // No :string constraint needed by default, it handles strings
         [HttpGet("{subId}")]
-        public async Task<ActionResult<Product?>> GetById(string subId)
+        public async Task<ActionResult<Subscription?>> GetById(string subId)
         {
-            var product = await _subscriptionService.GetByIdAsync(subId);
-            if (product == null)
+            var subscription = await _subscriptionService.GetByIdAsync(subId);
+            if (subscription == null)
                 return NotFound();
-            return Ok(product);
+            return Ok(subscription);
         }
 
         /// <summary>
-        /// Create a new subscription product.
+        /// Create a new subscription.
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult<string>> Create(Product product)
+        public async Task<ActionResult<string>> Create(Subscription subscription)
         {
-            var newId = await _subscriptionService.CreateAsync(product);
-            // Ensure newId is a string and matches the type of subId
+            var newId = await _subscriptionService.CreateAsync(subscription);
             return CreatedAtAction(nameof(GetById), new { subId = newId }, newId);
         }
 
         /// <summary>
-        /// Update an existing subscription product.
+        /// Update an existing subscription.
         /// </summary>
         [HttpPut("{subId}")]
-        public async Task<ActionResult> Update(string subId, Product product)
+        public async Task<ActionResult> Update(string subId, Subscription subscription)
         {
-            // Assuming Product.Id is now a string
-            if (subId != product.Id)
+            if (subId != subscription.SubscriptionId)
                 return BadRequest("ID mismatch.");
 
-            var updated = await _subscriptionService.UpdateAsync(product);
+            var updated = await _subscriptionService.UpdateAsync(subscription);
             if (!updated)
                 return NotFound();
 
@@ -70,91 +66,12 @@ namespace Back.Module.SubscriptionModule
         }
 
         /// <summary>
-        /// Soft delete a subscription product.
+        /// Soft delete a subscription.
         /// </summary>
-        // Removed :int constraint
         [HttpDelete("{subId}")]
         public async Task<ActionResult> Delete(string subId)
         {
             var deleted = await _subscriptionService.DeleteAsync(subId);
-            if (!deleted)
-                return NotFound();
-
-            return NoContent();
-        }
-    }
-
-    [ApiController]
-    [Route("subscription/tiers")]
-    public class SubscriptionTierController : ControllerBase
-    {
-        private readonly ITiersService _tiersService;
-
-        public SubscriptionTierController(ITiersService tiersService)
-        {
-            _tiersService = tiersService;
-        }
-
-        /// <summary>
-        /// Get all subscription tiers.
-        /// </summary>
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<SubscriptionTier>>> GetAll()
-        {
-            var tiers = await _tiersService.GetAllAsync();
-            return Ok(tiers);
-        }
-
-        /// <summary>
-        /// Get a subscription tier by ID.
-        /// </summary>
-        // Removed :int constraint
-        [HttpGet("{tierId}")]
-        public async Task<ActionResult<SubscriptionTier?>> GetById(string tierId)
-        {
-            var tier = await _tiersService.GetByIdAsync(tierId);
-            if (tier == null)
-                return NotFound();
-            return Ok(tier);
-        }
-
-        /// <summary>
-        /// Create a new subscription tier.
-        /// </summary>
-        [HttpPost]
-        public async Task<ActionResult<string>> Create(SubscriptionTier tier)
-        {
-            var newTierId = await _tiersService.CreateAsync(tier);
-            // Ensure newTierId is a string and matches the type of tierId
-            return CreatedAtAction(nameof(GetById), new { tierId = newTierId }, newTierId);
-        }
-
-        /// <summary>
-        /// Update a subscription tier.
-        /// </summary>
-        // Removed :int constraint
-        [HttpPut("{tierId}")]
-        public async Task<ActionResult> Update(string tierId, SubscriptionTier tier)
-        {
-            // Assuming SubscriptionTier.TierId is now a string
-            if (tierId != tier.TierId)
-                return BadRequest("ID mismatch.");
-
-            var updated = await _tiersService.UpdateAsync(tier);
-            if (!updated)
-                return NotFound();
-
-            return NoContent();
-        }
-
-        /// <summary>
-        /// Delete a subscription tier.
-        /// </summary>
-        // Removed :int constraint
-        [HttpDelete("{tierId}")]
-        public async Task<ActionResult> Delete(string tierId)
-        {
-            var deleted = await _tiersService.DeleteAsync(tierId);
             if (!deleted)
                 return NotFound();
 

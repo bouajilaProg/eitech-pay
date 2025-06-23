@@ -1,13 +1,11 @@
 using System.Data;
 using MySql.Data.MySqlClient;
 
-/*using Back.Modules.LicenceModule.Services;
-using Back.Modules.PublicModule.Services;
-using Back.Modules.GeneralServices;
-using Back.Modules.SubscriptionModule.Services;*/
-
-
+using Back.Modules.LicenceModule.Services;
+using Back.Modules.SubscriptionModule.Services;
 using Back.Modules.AdminModule.Services;
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,15 +22,14 @@ builder.Services.AddScoped<IDbConnection>(sp =>
 });
 
 // DI for services
-/*builder.Services.AddScoped<ILicenceService, LicenceService>();
-builder.Services.AddScoped<ILicenceOptionService, LicenceOptionService>();
-builder.Services.AddScoped<IPublicLicenceService, PublicLicenceService>();*/
-
-/*builder.Services.AddScoped<IProductService, ProductService>();
+builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<ITiersService, TiersService>();
-builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();*/
 
-builder.Services.AddScoped<IadminService, AdminService>();
+builder.Services.AddScoped<ILicenceService, LicenceService>();
+builder.Services.AddScoped<ILicenceOptionService, LicenceOptionService>();
+
+builder.Services.AddScoped<IAdminService, AdminService>();
+
 
 // Add controllers and OpenAPI
 builder.Services.AddControllers();

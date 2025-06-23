@@ -1,4 +1,4 @@
-namespace AdminModule.Services
+namespace Back.Modules.AdminModule.Services
 {
     public interface IAdminService
     {

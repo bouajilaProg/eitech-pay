@@ -23,10 +23,12 @@ namespace Back.Modules.LicenceModule.Services
         Task<string> CreateAsync(CreateLicenceDto createLicenceDto);
 
         // Update an existing license by ID, only if not archived
-        Task<bool> UpdateAsync(Licence licence);
+        Task<bool> UpdateAsync(CreateLicenceDto licence);
 
         // Soft delete a license by ID (set is_archived = true)
-        Task<bool> DeleteAsync(string licenceId)
+        Task<bool> DeleteAsync(string licenceId);
+
+
 
         // get revenue by id
         Task<MonthlyRevenue?> GetRevenueByIdAsync(string productId);
@@ -36,12 +38,5 @@ namespace Back.Modules.LicenceModule.Services
 
         // insert revenue
         Task<string> InsertRevenueAsync(MonthlyRevenue revenue);
-
-
-        // get stats
-        Task<Stats> GetStatsAsync();
-        
-
-
     }  
 }

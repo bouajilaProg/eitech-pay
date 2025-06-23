@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Back.Modules.AdminModule.Services; 
 
 
-namespace back.modules.AdminModule
+namespace Back.Modules.AdminModule
 {
     [ApiController]
     [Route("api/admin")]

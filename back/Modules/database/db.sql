@@ -2,123 +2,118 @@
 CREATE TABLE admin (
     AdminId SERIAL PRIMARY KEY,
     Username TEXT NOT NULL,
-    Password TEXT NOT NULL,
-    ApiKey TEXT NOT NULL,
-    isArchived BOOLEAN NOT NULL DEFAULT FALSE
+CREATE TABLE admin (
+    admin_id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    api_key VARCHAR(255) NOT NULL,
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TYPE BlackListType AS ENUM ('IP', 'User', 'Device');
-
-CREATE TABLE blackListed (
-    Id SERIAL PRIMARY KEY,
-    Ip TEXT NOT NULL,
-    userId INTEGER NOT NULL,
-    Type BlackListType NOT NULL,
-    BlockedDate TIMESTAMP NOT NULL,
-    RecoveryDate TIMESTAMP
+CREATE TABLE black_listed (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ip VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
+    type ENUM('IP', 'User', 'Device') NOT NULL,
+    blocked_date TIMESTAMP NOT NULL,
+    recovery_date TIMESTAMP NULL
 );
 
-CREATE TYPE RevenueType AS ENUM ('Subscription', 'Licence');
-
-CREATE TABLE monthlyRevenue (
-    Month DATE NOT NULL,
-    productId TEXT NOT NULL,
-    Type RevenueType NOT NULL,
-    Revenue DECIMAL(12, 2) NOT NULL
+CREATE TABLE monthly_revenue (
+    month DATE NOT NULL,
+    product_id VARCHAR(255) NOT NULL,
+    type ENUM('Subscription', 'Licence') NOT NULL,
+    revenue DECIMAL(12, 2) NOT NULL
 );
 
 CREATE TABLE stats (
-    TotalSales INTEGER NOT NULL,
-    TotalRevenue DECIMAL(12, 2) NOT NULL,
-    UsersCount INTEGER NOT NULL
+    total_sales INT NOT NULL,
+    total_revenue DECIMAL(12, 2) NOT NULL,
+    users_count INT NOT NULL
 );
 
-CREATE TABLE "user" (
-    UserId SERIAL PRIMARY KEY,
-    FirstName TEXT NOT NULL,
-    LastName TEXT NOT NULL,
-    Email TEXT NOT NULL,
-    Phone TEXT,
-    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
+CREATE TABLE users (
+    user_id INT AUTO_INCREMENT PRIMARY KEY,
+    first_name VARCHAR(255) NOT NULL,
+    last_name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    phone VARCHAR(50),
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE licence (
-    LicenceId TEXT PRIMARY KEY,
-    Name TEXT NOT NULL,
-    Description TEXT NOT NULL,
-    MaxDevices INTEGER NOT NULL,
-    Duration INTEGER NOT NULL,
-    GracePeriod INTEGER NOT NULL,
-    PublicKey TEXT NOT NULL,
-    Price DECIMAL(12, 2) NOT NULL,
-    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
+    licence_id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    max_devices INT NOT NULL,
+    duration INT NOT NULL,
+    grace_period INT NOT NULL,
+    public_key TEXT NOT NULL,
+    price DECIMAL(12, 2) NOT NULL,
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE licenceActivation (
-    ActivationId SERIAL PRIMARY KEY,
-    LicenceOrderId INTEGER NOT NULL,
-    DevicePrint TEXT NOT NULL,
-    UserId INTEGER NOT NULL,
-    ActivationDate TIMESTAMP NOT NULL,
-    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
+CREATE TABLE licence_activation (
+    activation_id INT AUTO_INCREMENT PRIMARY KEY,
+    licence_order_id INT NOT NULL,
+    device_print VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
+    activation_date TIMESTAMP NOT NULL,
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE licenceBundle (
-    LicenceOrderId INTEGER NOT NULL,
-    OptionId TEXT NOT NULL,
-    PRIMARY KEY (LicenceOrderId, OptionId)
+CREATE TABLE licence_bundle (
+    licence_order_id INT NOT NULL,
+    option_id VARCHAR(255) NOT NULL,
+    PRIMARY KEY (licence_order_id, option_id)
 );
 
-CREATE TABLE licenceOption (
-    OptionId TEXT PRIMARY KEY,
-    LicenceId TEXT NOT NULL,
-    OptionName TEXT NOT NULL,
-    Description TEXT NOT NULL,
-    Price DECIMAL(12, 2) NOT NULL,
-    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
+CREATE TABLE licence_option (
+    option_id VARCHAR(255) PRIMARY KEY,
+    licence_id VARCHAR(255) NOT NULL,
+    option_name VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    price DECIMAL(12, 2) NOT NULL,
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TYPE LicenceOrderStatus AS ENUM ('Active', 'Expired', 'Canceled');
-
-CREATE TABLE licenceOrder (
-    LicenceOrderId SERIAL PRIMARY KEY,
-    UserId INTEGER NOT NULL,
-    LicenceId TEXT NOT NULL,
-    PrivateKey TEXT NOT NULL,
-    PurchaseDate TIMESTAMP NOT NULL,
-    Status LicenceOrderStatus NOT NULL,
-    Reseller TEXT NOT NULL,
-    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
+CREATE TABLE licence_order (
+    licence_order_id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    licence_id VARCHAR(255) NOT NULL,
+    private_key TEXT NOT NULL,
+    purchase_date TIMESTAMP NOT NULL,
+    status ENUM('Active', 'Expired', 'Canceled') NOT NULL,
+    reseller VARCHAR(255) NOT NULL,
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
 CREATE TABLE subscription (
-    SubscriptionId TEXT PRIMARY KEY,
-    SubscriptionName TEXT NOT NULL,
+    subscription_id VARCHAR(255) PRIMARY KEY,
+    subscription_name VARCHAR(255) NOT NULL,
     description TEXT NOT NULL,
-    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TYPE SubscriptionOrderStatus AS ENUM ('Active', 'Expired', 'Canceled');
-
-CREATE TABLE subscriptionOrder (
-    OrderId SERIAL PRIMARY KEY,
-    SubscriptionId TEXT NOT NULL,
-    SubscriptionTierId TEXT NOT NULL,
-    UserId INTEGER NOT NULL,
-    PurchaseDate TIMESTAMP NOT NULL,
-    StartDate TIMESTAMP NOT NULL,
-    EndDate TIMESTAMP NOT NULL,
-    Status SubscriptionOrderStatus NOT NULL,
-    Reseller TEXT NOT NULL,
-    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
+CREATE TABLE subscription_order (
+    order_id INT AUTO_INCREMENT PRIMARY KEY,
+    subscription_id VARCHAR(255) NOT NULL,
+    subscription_tier_id VARCHAR(255) NOT NULL,
+    user_id INT NOT NULL,
+    purchase_date TIMESTAMP NOT NULL,
+    start_date TIMESTAMP NOT NULL,
+    end_date TIMESTAMP NOT NULL,
+    status ENUM('Active', 'Expired', 'Canceled') NOT NULL,
+    reseller VARCHAR(255) NOT NULL,
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
 
-CREATE TABLE subscriptionTier (
-    TierId TEXT PRIMARY KEY,
-    SubscriptionId TEXT NOT NULL,
-    TierName TEXT NOT NULL,
-    Duration INTEGER NOT NULL,
-    GracePeriod INTEGER NOT NULL,
-    Price DECIMAL(12, 2) NOT NULL,
-    IsArchived BOOLEAN NOT NULL DEFAULT FALSE
+CREATE TABLE subscription_tier (
+    tier_id VARCHAR(255) PRIMARY KEY,
+    subscription_id VARCHAR(255) NOT NULL,
+    tier_name VARCHAR(255) NOT NULL,
+    duration INT NOT NULL,
+    grace_period INT NOT NULL,
+    price DECIMAL(12, 2) NOT NULL,
+    is_archived BOOLEAN NOT NULL DEFAULT FALSE
 );
