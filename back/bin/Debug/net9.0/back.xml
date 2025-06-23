@@ -93,6 +93,13 @@
             <param name="licenceId">The unique ID of the licence</param>
             <returns>Licence details if found and not archived; otherwise, 404</returns>
         </member>
+        <member name="M:Back.Modules.LicenceModule.Controllers.LicencePublicController.ActivateLicence(Back.Modules.LicenceModule.Dtos.ActivateLicenceRequestDto)">
+            <summary>
+            Activate a licence for a device.
+            </summary>
+            <param name="request">The activation request containing email, licence key, and device fingerprint</param>
+            <returns>Activation result indicating success or failure with appropriate message</returns>
+        </member>
         <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.GetAllTiers">
             <summary>
             Get all subscription tiers (not archived).
