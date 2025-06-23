@@ -142,5 +142,22 @@ namespace Back.Modules.AdminModule.Services
         {
             return input == hashed;
         }
+
+       
+        // Get API key for admin
+        public string GetApiKey(int adminId)
+        {
+            const string query = "SELECT api_key FROM admin WHERE admin_id = @AdminId AND is_archived = false LIMIT 1";
+            Console.WriteLine($"Query: {query}, AdminId: {adminId}");
+            
+            var apiKey = _db.QueryFirstOrDefault<string>(query, new { AdminId = adminId });
+
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                throw new InvalidOperationException("API Key not found.");
+            }
+
+            return apiKey;
+        }
     }
 }

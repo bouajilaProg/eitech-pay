@@ -88,5 +88,25 @@ namespace Back.Modules.AdminModule
             _adminService.ChangePaymentDetails(dto.ApiKey, dto.KonnectId);
             return NoContent();
         }
+
+        [HttpGet("generate-api-key")]
+        public ActionResult<string> GenerateApiKey()
+        {
+            var apiKey = _adminService.GenerateApiKey();
+            return Ok(apiKey);
+        }
+
+        //get api key
+        [HttpGet("api-key")]
+        public ActionResult<string> GetApiKey(int AdminId)
+        {
+            var apiKey = _adminService.GetApiKey(AdminId);
+            if (string.IsNullOrEmpty(apiKey))
+            {
+                return NotFound("API Key not found.");
+            }
+            return Ok(apiKey);
+        }
+
     }
 }
