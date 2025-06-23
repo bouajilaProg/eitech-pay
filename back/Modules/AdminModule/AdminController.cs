@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Back.Modules.AdminModule.Services; 
+using Back.Modules.AdminModule.Dtos;
 
 
 namespace Back.Modules.AdminModule
@@ -16,9 +17,16 @@ namespace Back.Modules.AdminModule
         }
 
         [HttpPost("login")]
-        public ActionResult<string> Login(string email, string password)
+        public ActionResult<string> Login([FromBody] LoginRequestDto loginDto)
         {
-            var token = _adminService.Login(email, password);
+            var username = loginDto.Username;
+            var password = loginDto.Password;
+
+            if (string.IsNullOrEmpty(username) || string.IsNullOrEmpty(password))
+            {
+                return BadRequest("Username and password must not be empty.");
+            }
+            var token = _adminService.Login(username, password);
             return Ok(token);
         }
 

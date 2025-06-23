@@ -21,10 +21,10 @@ namespace Back.Modules.AdminModule.Services
             _jwtSecret = config["Jwt:Secret"] ?? throw new ArgumentNullException("JWT secret not configured.");
         }
 
-        public string Login(string email, string password)
+        public string Login(string username, string password)
         {
-            const string query = "SELECT * FROM Admin WHERE user_name = @Email AND is_archived = false";
-            var admin = _db.QueryFirstOrDefault<Admin>(query, new { Email = email });
+            const string query = "SELECT * FROM admin WHERE username = @Username AND is_archived = false";
+            var admin = _db.QueryFirstOrDefault<Admin>(query, new { Username = username });
 
             if (admin == null || !VerifyPassword(password, admin.Password))
                 throw new UnauthorizedAccessException("Invalid credentials");
