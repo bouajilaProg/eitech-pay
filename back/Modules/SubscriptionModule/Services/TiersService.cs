@@ -18,7 +18,7 @@ namespace Back.Modules.SubscriptionModule.Services
         public async Task<SubscriptionTier?> GetByIdAsync(string tierId)
         {
             const string query = @"
-                SELECT * FROM subscription_tiers
+                SELECT * FROM subscription_tier
                 WHERE tier_id = @TierId AND is_archived = false;
             ";
 
@@ -28,28 +28,28 @@ namespace Back.Modules.SubscriptionModule.Services
         public async Task<IEnumerable<SubscriptionTier>> GetAllAsync()
         {
             const string query = @"
-                SELECT * FROM subscription_tiers
+                SELECT * FROM subscription_tier
                 WHERE is_archived = false;
             ";
 
             return await _db.QueryAsync<SubscriptionTier>(query);
         }
 
-        public async Task<IEnumerable<SubscriptionTier>> GetSubscriptionByID(string productId)
+        public async Task<IEnumerable<SubscriptionTier>> GetSubscriptionByID(string subscriptionId)
         {
             const string query = @"
-                SELECT * FROM subscription_tiers
-                WHERE product_id = @ProductId AND is_archived = false;
+                SELECT * FROM subscription_tier
+                WHERE subscription_id = @SubscriptionId AND is_archived = false;
             ";
 
-            return await _db.QueryAsync<SubscriptionTier>(query, new { ProductId = productId });
+            return await _db.QueryAsync<SubscriptionTier>(query, new { subscriptionId = subscriptionId });
         }
 
         public async Task<string> CreateAsync(SubscriptionTier tier)
         {
             const string query = @"
-                INSERT INTO subscription_tiers (product_id, tier_name, duration, grace_period, price, is_archived)
-                VALUES (@ProductId, @TierName, @Duration, @GracePeriod, @Price, false);
+                INSERT INTO subscription_tier (tier_id,subscription_id, tier_name,description, duration, grace_period, price, is_archived)
+                VALUES (@TierId,@SubscriptionId, @TierName,@Description ,@Duration, @GracePeriod, @Price, false);
                 SELECT LAST_INSERT_ID();
             ";
 
@@ -59,12 +59,14 @@ namespace Back.Modules.SubscriptionModule.Services
         public async Task<bool> UpdateAsync(SubscriptionTier tier)
         {
             const string query = @"
-                UPDATE subscription_tiers
-                SET product_id = @ProductId,
-                    tier_name = @TierName,
-                    duration = @Duration,
-                    grace_period = @GracePeriod,
-                    price = @Price
+                UPDATE subscription_tier
+                SET tier_id = @TierId,
+                subscription_id = @SubscriptionId,
+                tier_name = @TierName,
+                description = @Description,
+                duration = @Duration,
+                grace_period = @GracePeriod,
+                price = @Price
                 WHERE tier_id = @TierId AND is_archived = false;
             ";
 
@@ -75,7 +77,7 @@ namespace Back.Modules.SubscriptionModule.Services
         public async Task<bool> DeleteAsync(string tierId)
         {
             const string query = @"
-                UPDATE subscription_tiers
+                UPDATE subscription_tier
                 SET is_archived = true
                 WHERE tier_id = @TierId AND is_archived = false;
             ";

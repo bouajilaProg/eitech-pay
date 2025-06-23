@@ -14,7 +14,7 @@ namespace Back.Modules.SubscriptionModule.Services
         Task<IEnumerable<SubscriptionTier>> GetAllAsync();
 
         // Get all subscription tiers for a specific product, not archived
-        Task<IEnumerable<SubscriptionTier>> GetSubscriptionByID(string productId);
+        Task<IEnumerable<SubscriptionTier>> GetSubscriptionByID(string subscriptionId);
 
         // Create a new subscription tier
         Task<string> CreateAsync(SubscriptionTier tier);

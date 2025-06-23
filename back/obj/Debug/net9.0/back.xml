@@ -86,29 +86,34 @@
             <param name="id">The ID of the option to delete.</param>
             <returns>No content if successful; otherwise, NotFound.</returns>
         </member>
-        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.GetAll">
+        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.GetAllTiers">
             <summary>
-            Get all subscriptions.
+            Get all subscription tiers (not archived).
             </summary>
         </member>
-        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.GetById(System.String)">
+        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.GetTierById(System.String)">
             <summary>
-            Get a subscription by ID.
+            Get a subscription tier by its ID.
             </summary>
         </member>
-        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.Create(Back.Models.SubscriptionRelated.Subscription)">
+        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.GetTiersBySubscriptionId(System.String)">
             <summary>
-            Create a new subscription.
+            Get all tiers for a given subscription ID.
             </summary>
         </member>
-        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.Update(System.String,Back.Models.SubscriptionRelated.Subscription)">
+        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.CreateTier(Back.Models.SubscriptionRelated.SubscriptionTier)">
             <summary>
-            Update an existing subscription.
+            Create a new subscription tier.
             </summary>
         </member>
-        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.Delete(System.String)">
+        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.UpdateTier(System.String,Back.Models.SubscriptionRelated.SubscriptionTier)">
             <summary>
-            Soft delete a subscription.
+            Update a subscription tier by ID.
+            </summary>
+        </member>
+        <member name="M:Back.Modules.SubscriptionModule.SubscriptionController.DeleteTier(System.String)">
+            <summary>
+            Soft delete a subscription tier by ID.
             </summary>
         </member>
     </members>

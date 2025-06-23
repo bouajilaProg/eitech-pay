@@ -25,6 +25,7 @@ namespace Back.Modules.SubscriptionModule.Services
             const string query = @"
                 SELECT
                     subscription_id AS SubscriptionId,
+                    subscription_name AS SubscriptionName,
                     description,
                     is_archived AS IsArchived
                 FROM subscription
@@ -42,6 +43,7 @@ namespace Back.Modules.SubscriptionModule.Services
             const string query = @"
                 SELECT
                     subscription_id AS SubscriptionId,
+                    subscription_name AS SubscriptionName,
                     description,
                     is_archived AS IsArchived
                 FROM subscription
@@ -54,8 +56,8 @@ namespace Back.Modules.SubscriptionModule.Services
         public async Task<string> CreateAsync(Subscription subscription)
         {
             const string query = @"
-                INSERT INTO subscription (subscription_id, description, is_archived)
-                VALUES (@SubscriptionId, @description, @IsArchived)
+                INSERT INTO subscription (subscription_id,subscription_name, description, is_archived)
+                VALUES (@SubscriptionId, @SubscriptionName,@description, @IsArchived)
                 RETURNING subscription_id;
             ";
 
