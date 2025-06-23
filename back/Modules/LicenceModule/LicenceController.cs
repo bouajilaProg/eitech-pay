@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 
 using Back.Models.LicenceRelated;
 using Back.Modules.LicenceModule.Services;
-using Back.Modules.GeneralServices;
 using Back.Modules.LicenceModule.Dtos;
 
 namespace Back.Modules.LicenceModule
@@ -74,7 +73,7 @@ namespace Back.Modules.LicenceModule
         /// <param name="licence">The updated licence data.</param>
         /// <returns>No content if successful; otherwise, NotFound or BadRequest.</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> Update(string id, [FromBody] Licence licence)
+        public async Task<IActionResult> Update(string id, [FromBody] CreateLicenceDto licence)
         {
             if (id != licence.LicenceId)
                 return BadRequest("ID mismatch");

@@ -31,18 +31,18 @@ namespace Back.Modules.SubscriptionModule.Services
         Task<SubscriptionDetailsDto?> GetSubscriptionDetailsAsync(string subscriptionId);
 
         // get monthly Revenue for alll
-        Task<monthlyRevenue> GetMonthlyRevenueAsync();
+        Task<MonthlyRevenue> GetMonthlyRevenueAsync();
 
         // get monthly Revenue for a specific subscription
-        Task<monthlyRevenue> GetMonthlyRevenueAsync(string subscriptionId);
+        Task<MonthlyRevenue> GetMonthlyRevenueAsync(string subscriptionId);
 
         // insert monthly revenue for a specific subscription
-        Task<bool> InsertMonthlyRevenueAsync(monthlyRevenue monthlyRevenue);
+        Task<bool> InsertMonthlyRevenueAsync(MonthlyRevenue monthlyRevenue);
 
 
 
         // get stats
-        Task<StatsDto> GetStatsAsync();
+        Task<Stats> GetStatsAsync();
 
 
     }

@@ -1,9 +1,9 @@
-namespace AdminModule.Services
+namespace Back.Modules.AdminModule.Services
 {
     public interface IAdminService
     {
-        string Login(string email, string password);
-        bool CheckToken(string token);
+        string Login(string username, string password);
+        public (string AdminId, string AdminName) CheckToken(string token);
 
         void ChangePassword(string oldpasswd, string newpasswd);
         void ChangePaymentDetails(string apiKey, string konnectId);
