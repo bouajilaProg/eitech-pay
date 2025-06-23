@@ -57,6 +57,20 @@
 /home/bouajila/projects/working/study/pfe-vue-front/back/bin/Debug/net9.0/back.xml
 /home/bouajila/projects/working/study/pfe-vue-front/back/obj/Debug/net9.0/back.xml
 <<<<<<< HEAD
+=======
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.csproj.AssemblyReference.cache
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.GeneratedMSBuildEditorConfig.editorconfig
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.AssemblyInfoInputs.cache
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.AssemblyInfo.cs
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.csproj.CoreCompileInputs.cache
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.MvcApplicationPartsAssemblyInfo.cs
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.MvcApplicationPartsAssemblyInfo.cache
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.sourcelink.json
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.dll
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/refint/back.dll
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.xml
+/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.pdb
+>>>>>>> upstream/main
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.csproj.AssemblyReference.cache
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.GeneratedMSBuildEditorConfig.editorconfig
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.AssemblyInfoInputs.cache
@@ -65,14 +79,14 @@
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.MvcApplicationPartsAssemblyInfo.cs
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.MvcApplicationPartsAssemblyInfo.cache
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.sourcelink.json
-/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.dll
-/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/refint/back.dll
-/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.xml
-/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.pdb
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/appsettings.Development.json
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/appsettings.json
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/back.staticwebassets.endpoints.json
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/back
+/home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/Modules/Notification/Templates/LicensePaymentSuccess.html
+/home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/Modules/Notification/Templates/PaymentReminder.html
+/home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/Modules/Notification/Templates/ProductExpiration.html
+/home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/Modules/Notification/Templates/SubscriptionPaymentSuccess.html
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/back.deps.json
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/back.runtimeconfig.json
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/back.dll
@@ -113,23 +127,9 @@
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/staticwebassets/msbuild.buildTransitive.back.props
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/staticwebassets.pack.json
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.csproj.Up2Date
+/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.dll
+/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/refint/back.dll
+/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.xml
+/home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.pdb
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/back.genruntimeconfig.cache
 /home/ahmed/my_stuff/git_clones/eitech-pay/back/obj/Debug/net9.0/ref/back.dll
-/home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/Modules/Notification/Templates/ProductExpiration.html
-/home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/Modules/Notification/Templates/PaymentReminder.html
-/home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/Modules/Notification/Templates/SubscriptionPaymentSuccess.html
-/home/ahmed/my_stuff/git_clones/eitech-pay/back/bin/Debug/net9.0/Modules/Notification/Templates/LicensePaymentSuccess.html
-=======
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.csproj.AssemblyReference.cache
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.GeneratedMSBuildEditorConfig.editorconfig
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.AssemblyInfoInputs.cache
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.AssemblyInfo.cs
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.csproj.CoreCompileInputs.cache
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.MvcApplicationPartsAssemblyInfo.cs
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.MvcApplicationPartsAssemblyInfo.cache
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.sourcelink.json
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.dll
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/refint/back.dll
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.xml
-/home/bouajila/projects/working/study/pfe/back/obj/Debug/net9.0/back.pdb
->>>>>>> upstream/main
