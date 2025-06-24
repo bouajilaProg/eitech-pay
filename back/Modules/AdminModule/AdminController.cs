@@ -23,7 +23,6 @@ namespace Back.Modules.AdminModule
         }
 
 
-
     [HttpPost("decode-token")]
     public ActionResult<object> DecodeToken([FromBody] string token)
     {

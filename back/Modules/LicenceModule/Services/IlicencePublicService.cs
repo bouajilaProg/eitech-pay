@@ -9,16 +9,15 @@ namespace Back.Modules.LicenceModule.Services
 {
     public interface IlicencePublicService 
     {
-
         // activate licence
-      Task<bool> ActivateLicenceAsync(string licenceKey,string device_print,string email,string tel);
+        Task<ActivationResultDto> ActivateLicenceAsync(string email, string licenceKey, string deviceFingerprint, string ipAddress);
 
-      // check if licence is valid
-      Task<LicenceDetailsDto?> CheckLicenceAsync(string licenceKey,string device_print,int userId);
+        // check if licence is valid
+        Task<LicenceDetailsDto?> CheckLicenceAsync(string licenceKey, string device_print, int userId);
 
-      // get licence details
-      Task<LicenceDetailsDto?> GetLicenceDetailsAsync(string LicenceId);
+        // get licence details
+        Task<LicenceDetailsDto?> GetLicenceDetailsAsync(string LicenceId);
 
-
+        Task CreateLicenceOrderAsync(CreateLicenceOrderDto dto);
     }
 }

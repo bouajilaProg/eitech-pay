@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Back.Models.LicenceRelated;
 using Back.Modules.LicenceModule.Dtos;
 using Back.Modules.LicenceModule.Services;
+using Back.Utils;
 
 namespace Back.Modules.LicenceModule.Services
 {
@@ -11,23 +12,26 @@ namespace Back.Modules.LicenceModule.Services
     {
         private readonly ILicenceService _licenceService;
         private readonly ILicenceOptionService _licenceOptionService;
+        private readonly ILicenceOrderService _licenceOrderService;
 
         public LicencePublicService(
             ILicenceService licenceService,
-            ILicenceOptionService licenceOptionService)
+            ILicenceOptionService licenceOptionService,
+            ILicenceOrderService licenceOrderService)
         {
             _licenceService = licenceService;
             _licenceOptionService = licenceOptionService;
+            _licenceOrderService = licenceOrderService;
         }
 
-        public async Task<bool> ActivateLicenceAsync(string licenceKey, string device_print, string email, string tel)
+        public async Task<ActivationResultDto> ActivateLicenceAsync(string licenceKey, string device_print, string email, string tel)
         {
             Console.WriteLine($"[ActivateLicenceAsync] LicenceKey: {licenceKey}, DevicePrint: {device_print}, Email: {email}, Tel: {tel}");
 
             // TODO: implement logic here (e.g., check key, store device info, activate in DB, etc.)
             await Task.Delay(100); // simulate async work
 
-            return true; // change based on actual activation result
+            return new ActivationResultDto(); // change based on actual activation result
         }
 
         public async Task<LicenceDetailsDto?> CheckLicenceAsync(string licenceKey, string device_print, int userId)
@@ -58,12 +62,33 @@ namespace Back.Modules.LicenceModule.Services
                 Description = licence.Description,
                 MaxDevices = licence.MaxDevices,
                 Duration = licence.Duration,
-                GracePeriod = int.TryParse(licence.GracePeriod, out var grace) ? grace : 0,
+                GracePeriod = licence.GracePeriod.ToString(),
                 PublicKey = licence.PublicKey,
                 Price = licence.Price,
                 IsArchived = licence.IsArchived,
                 Options = options != null ? new List<LicenceOption>(options) : new()
             };
         }
+
+        public async Task CreateLicenceOrderAsync(CreateLicenceOrderDto dto)
+        {
+            var id = IdGenerator.GenerateId("lo"); // your ID generator
+
+            var order = new LicenceOrder
+            {
+                LicenceOrderId = int.Parse(id.Split('_')[1]), // Extract numeric part
+                UserId = dto.UserId,
+                LicenceId = dto.LicenceId,
+                PurchaseDate = DateTime.UtcNow,
+                Status = LicenceOrderStatus.Active,
+                Reseller = "konnect",
+                IsArchived = false,
+                PrivateKey = "", // Fill if needed
+            };
+
+            await _licenceOrderService.CreateAsync(order);
+        }
+
     }
+    
 }
