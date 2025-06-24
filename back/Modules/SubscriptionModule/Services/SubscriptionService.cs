@@ -67,10 +67,12 @@ namespace Back.Modules.SubscriptionModule.Services
         public async Task<bool> UpdateAsync(Subscription subscription)
         {
             const string query = @"
-                UPDATE subscription
-                SET
-                    description = @description
-                WHERE subscription_id = @SubscriptionId AND is_archived = false;
+            UPDATE subscription
+            SET
+                subscription_id = @SubscriptionId,
+                subscription_name = @SubscriptionName,
+                description = @Description
+            WHERE subscription_id = @SubscriptionId AND is_archived = false;
             ";
 
             var affected = await _db.ExecuteAsync(query, subscription);

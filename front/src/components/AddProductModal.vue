@@ -78,7 +78,7 @@
 
               <div>
                 <label class="block mb-1 font-medium text-gray-700">Grace Period</label>
-                <input type="number" v-model.number="form.gracePeriod" min="0"
+                <input type="text" v-model="form.gracePeriod"
                        class="w-full rounded border px-3 py-2 focus:outline-none focus:ring-2"
                        :class="errors.gracePeriod ? 'border-red-600 focus:ring-red-600' : 'border-gray-300 focus:ring-cyan-500'" />
                 <p v-if="errors.gracePeriod" class="text-red-600 text-sm mt-1">{{ errors.gracePeriod }}</p>
@@ -114,6 +114,8 @@
 
 <script setup>
 import { reactive, defineEmits } from "vue";
+import { licenceService } from "@/services/licence.service";
+import { subscriptionService } from "@/services/subscription.service";
 
 const emit = defineEmits(["close", "submit"]);
 
@@ -133,8 +135,10 @@ const errors = reactive({});
 function validateForm() {
   Object.keys(errors).forEach((key) => delete errors[key]);
 
-  if (!form.id.trim()) errors.id = "ID is required.";
-  if (!form.name.trim()) errors.name = "Name is required.";
+  if (!form.id.trim()) 
+    errors.id = "ID is required.";
+  if (!form.name.trim())
+    errors.name = "Name is required.";
 
   if (form.type === "license") {
     if (form.maxDevices == null || form.maxDevices <= 0)
@@ -154,10 +158,34 @@ function close() {
   emit("close");
 }
 
-function handleSubmit() {
+async function handleSubmit() {
   if (!validateForm()) return;
 
-  emit("submit", { ...form });
-  close();
+  try {
+    if (form.type === "license") {
+      console.log("ssss trying")
+      await licenceService.createLicence({
+        licenceId: form.id,
+        licenceName: form.name,
+        description: form.description,
+        maxDevices: form.maxDevices,
+        duration: form.duration,
+        gracePeriod: form.gracePeriod,
+        price: form.price
+      });
+    } else if (form.type === "subscription") {
+      await subscriptionService.createSubscription({
+        subscriptionId: form.id,
+        subscriptionName: form.name,
+        description: form.description
+      });
+    }
+
+    emit("submit");
+    close();
+  } catch (error) {
+    console.error("Failed to create product:", error);
+  }
 }
+
 </script>

@@ -20,20 +20,14 @@ namespace Back.Modules.LicenceModule.Services
             _licenceOptionService = licenceOptionService;
         }
 
-        public async Task<ActivationResultDto> ActivateLicenceAsync(string email, string licenceKey, string deviceFingerprint, string ipAddress)
+        public async Task<ActivationResultDto> ActivateLicenceAsync(string licenceKey, string device_print, string email, string tel)
         {
-            Console.WriteLine($"[ActivateLicenceAsync] Email: {email}, LicenceKey: {licenceKey}, DeviceFingerprint: {deviceFingerprint}, IPAddress: {ipAddress}");
+            Console.WriteLine($"[ActivateLicenceAsync] LicenceKey: {licenceKey}, DevicePrint: {device_print}, Email: {email}, Tel: {tel}");
 
-            // TODO: Implement activation logic (e.g., validate licence key, check device binding, etc.)
-            await Task.Delay(100); // Simulate async work
+            // TODO: implement logic here (e.g., check key, store device info, activate in DB, etc.)
+            await Task.Delay(100); // simulate async work
 
-            // Return a dummy activation result for now
-            return new ActivationResultDto
-            {
-                Success = true,
-                Message = "Licence activated successfully.",
-                ActivationId = Guid.NewGuid().ToString()
-            };
+            return new ActivationResultDto(); // change based on actual activation result
         }
 
         public async Task<LicenceDetailsDto?> CheckLicenceAsync(string licenceKey, string device_print, int userId)
@@ -64,7 +58,7 @@ namespace Back.Modules.LicenceModule.Services
                 Description = licence.Description,
                 MaxDevices = licence.MaxDevices,
                 Duration = licence.Duration,
-                GracePeriod = licence.GracePeriod, // Ensure GracePeriod is already an integer
+                GracePeriod = licence.GracePeriod.ToString(),
                 PublicKey = licence.PublicKey,
                 Price = licence.Price,
                 IsArchived = licence.IsArchived,
