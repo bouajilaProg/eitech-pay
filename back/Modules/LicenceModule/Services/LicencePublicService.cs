@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Back.Models.LicenceRelated;
 using Back.Modules.LicenceModule.Dtos;
 using Back.Modules.LicenceModule.Services;
+using Back.Utils;
 
 namespace Back.Modules.LicenceModule.Services
 {
@@ -11,13 +12,16 @@ namespace Back.Modules.LicenceModule.Services
     {
         private readonly ILicenceService _licenceService;
         private readonly ILicenceOptionService _licenceOptionService;
+        private readonly ILicenceOrderService _licenceOrderService;
 
         public LicencePublicService(
             ILicenceService licenceService,
-            ILicenceOptionService licenceOptionService)
+            ILicenceOptionService licenceOptionService,
+            ILicenceOrderService licenceOrderService)
         {
             _licenceService = licenceService;
             _licenceOptionService = licenceOptionService;
+            _licenceOrderService = licenceOrderService;
         }
 
         public async Task<ActivationResultDto> ActivateLicenceAsync(string licenceKey, string device_print, string email, string tel)
@@ -65,5 +69,26 @@ namespace Back.Modules.LicenceModule.Services
                 Options = options != null ? new List<LicenceOption>(options) : new()
             };
         }
+
+        public async Task CreateLicenceOrderAsync(CreateLicenceOrderDto dto)
+        {
+            var id = IdGenerator.GenerateId("lo"); // your ID generator
+
+            var order = new LicenceOrder
+            {
+                LicenceOrderId = int.Parse(id.Split('_')[1]), // Extract numeric part
+                UserId = dto.UserId,
+                LicenceId = dto.LicenceId,
+                PurchaseDate = DateTime.UtcNow,
+                Status = LicenceOrderStatus.Active,
+                Reseller = "konnect",
+                IsArchived = false,
+                PrivateKey = "", // Fill if needed
+            };
+
+            await _licenceOrderService.CreateAsync(order);
+        }
+
     }
+    
 }

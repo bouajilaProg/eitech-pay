@@ -17,5 +17,7 @@ namespace Back.Modules.LicenceModule.Services
 
         // get licence details
         Task<LicenceDetailsDto?> GetLicenceDetailsAsync(string LicenceId);
+
+        Task CreateLicenceOrderAsync(CreateLicenceOrderDto dto);
     }
 }

@@ -25,10 +25,12 @@ builder.Services.AddScoped<ISubscriptionService, SubscriptionService>();
 builder.Services.AddScoped<ITiersService, TiersService>();
 builder.Services.AddScoped<ILicenceService, LicenceService>();
 builder.Services.AddScoped<ILicenceOptionService, LicenceOptionService>();
+builder.Services.AddScoped<ILicenceOrderService, LicenceOrderService>();
 builder.Services.AddScoped<IlicencePublicService, LicencePublicService>();
 builder.Services.AddScoped<ISubscriptionPublicService, SubscriptionPublicService>();
 builder.Services.AddScoped<IAdminService, AdminService>();
 builder.Services.AddScoped<INotificationService, NotificationService>();
+
 
 // Register HttpClient
 builder.Services.AddHttpClient();
