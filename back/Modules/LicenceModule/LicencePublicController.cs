@@ -32,5 +32,23 @@ namespace Back.Modules.LicenceModule.Controllers
 
             return Ok(details);
         }
-    }
+
+    
+        [HttpGet("check/{licence_id}")]
+        public async Task<ActionResult<LicenceDetailsDto>> CheckLicence(
+          [FromRoute] string licence_id,
+          [FromQuery] string? ip,
+          [FromQuery(Name = "device")] string? device_print = null,
+          [FromQuery] string? tel = null,
+          [FromQuery] string? email = null)
+        {
+          var result = await _licencePublicService.CheckLicenceAsync(
+              licence_id, ip, device_print, tel, email);
+
+          if (result == null)
+              return NotFound("Licence not found or invalid parameters.");
+
+          return Ok(result);
+        }
+    } 
 }

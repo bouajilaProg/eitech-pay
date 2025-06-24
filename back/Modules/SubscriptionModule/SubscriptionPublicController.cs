@@ -16,7 +16,7 @@ namespace Back.Controllers.Public
             _subscriptionPublicService = subscriptionPublicService;
         }
 
-        // GET: /api/v0/subscription/{subscriptionId}
+        // GET: /api/v0/subscription/{subscriptionId}/details
         [HttpGet("{subscriptionId}/details")]
         public async Task<ActionResult<SubscriptionDetailsDto>> GetSubscriptionDetails(string subscriptionId)
         {
@@ -28,6 +28,24 @@ namespace Back.Controllers.Public
             }
 
             return Ok(details);
+        }
+
+        // ✅ NEW: Check Subscription
+        // Example: /api/v0/subscription/check?tierId=TIER-001&email=user@example.com&tel=123456
+        [HttpGet("check/{tierId}")]
+       public async Task<ActionResult<CheckSubscriptionDto>> CheckSubscription(
+            [FromRoute] string tierId,
+            [FromQuery] string email,
+            [FromQuery] string? tel)
+        {
+            var result = await _subscriptionPublicService.CheckSubscriptionAsync(tierId, email, tel);
+
+            if (result == null)
+            {
+                return NotFound(new { message = "No active subscription found." });
+            }
+
+            return Ok(result);
         }
     }
 }

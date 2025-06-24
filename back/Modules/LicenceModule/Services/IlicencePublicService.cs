@@ -13,8 +13,9 @@ namespace Back.Modules.LicenceModule.Services
         // activate licence
       Task<bool> ActivateLicenceAsync(string licenceKey,string device_print,string email,string tel);
 
-      // check if licence is valid
-      Task<LicenceDetailsDto?> CheckLicenceAsync(string licenceKey,string device_print,int userId);
+
+      // check licence
+      Task<LicenceDetailsDto?> CheckLicenceAsync(string licence_id,string ip , string device_print, string tel,string email);
 
       // get licence details
       Task<LicenceDetailsDto?> GetLicenceDetailsAsync(string LicenceId);

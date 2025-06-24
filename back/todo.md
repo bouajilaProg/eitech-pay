@@ -1,7 +1,4 @@
 - subscription 
-  - crud subscription *1
-  - crud tiers *2
-  - get details *5
   - get stats*8
   - get revenue*9
   - check subscription status *20
@@ -9,13 +6,11 @@
   - save payment details *21
 
 - licence
-  - crud licence *3
-  - crud options *4
-  - get details *6
   - get stats*7
-  - get revenue*10 
+  - get revenue*
   - check licence status *19
   - activate licence
+  - save payment details *21
 
 
 - admin V
