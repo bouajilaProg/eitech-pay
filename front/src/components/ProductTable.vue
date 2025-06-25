@@ -1,6 +1,6 @@
 <template>
   <div class="card mb-4 text">
-    <!-- Header with Add Product Button -->
+    <!-- Header -->
     <div class="card-header d-flex justify-content-between align-items-center">
       <h3 class="card-title mb-0">Products</h3>
       <button
@@ -24,19 +24,15 @@
           </tr>
         </thead>
         <tbody>
-          <tr @click="router.push('/products/1')" style="cursor: pointer">
-            <td>prod_1</td>
-            <td>
-              <strong>licence_1</strong><br />
-            </td>
-            <td>subscription_1</td>
-          </tr>
-          <tr @click="router.push('/products/2')" style="cursor: pointer">
-            <td>prod_2</td>
-            <td>
-              <strong>licence_1</strong><br />
-            </td>
-            <td>desciption_2</td>
+          <tr
+            v-for="product in products"
+            :key="product.id"
+            :style="{ cursor: 'pointer' }"
+            @click="router.push(product.route)"
+          >
+            <td>{{ product.id }}</td>
+            <td><strong>{{ product.name }}</strong></td>
+            <td>{{ product.description }}</td>
           </tr>
         </tbody>
       </table>
@@ -55,7 +51,9 @@
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import AddProductModal from '@comp/AddProductModal.vue'
-import { productService } from '@/services/product.service.ts'
+
+import { licenceService } from '@/services/licence.service.ts'
+import { subscriptionService } from '@/services/subscription.service.ts'
 
 const router = useRouter()
 const products = ref([])
@@ -63,12 +61,27 @@ const showModal = ref(false)
 
 async function loadProducts() {
   try {
-    products.value = await productService.getAll()
-    console.log('Products loaded:', products.value)
-    products.value = products.value.map(p => ({
-      ...p,
-      route: `/products/${p.id}`
-    }))
+    const [licences, subscriptions] = await Promise.all([
+      licenceService.getAllLicences(),
+      subscriptionService.getAllSubscriptions()
+    ])
+
+    products.value = [
+      ...licences.map(l => ({
+        id: l.licenceId,
+        name: l.licenceName,
+        description: l.description,
+        type: 'licence',
+        route: `/products/${l.licenceId}?type=licence`
+      })),
+      ...subscriptions.map(s => ({
+        id: s.subscriptionId,
+        name: s.subscriptionName,
+        description: s.description,
+        type: 'subscription',
+        route: `/products/${s.subscriptionId}?type=subscription`
+      }))
+    ]
   } catch (error) {
     console.error('Failed to load products:', error)
   }
@@ -76,11 +89,12 @@ async function loadProducts() {
 
 async function addProduct(newProductInput) {
   try {
-    await productService.create(newProductInput);
-    await loadProducts();
-    showModal.value = false;
+    // You may want to branch logic depending on whether it's a licence or subscription
+    await productService.create(newProductInput)
+    await loadProducts()
+    showModal.value = false
   } catch (error) {
-    console.error('Failed to add product:', error);
+    console.error('Failed to add product:', error)
   }
 }
 

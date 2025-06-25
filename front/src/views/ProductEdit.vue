@@ -11,8 +11,9 @@
         </button>
       </div>
 
-      <ProductDetailsEdit ref="productComponentRef" />
-      <OptionsTable @open-modal="openModal" />
+      <ProductDetailsEdit ref="productComponentRef" v-if="product" :product="product" />
+      <OptionsTable v-if="product" @open-modal="openModal" />
+      
       <AddTierModal v-if="showModal" @close="showModal = false" @add-tier="handleAddTier" />
     </main>
   </div>
@@ -21,21 +22,22 @@
 <script setup>
 import "../global.css"
 
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
 
-// Import components
 import ProductDetailsEdit from '../components/ProductEdit/ProductDetailsEdit.vue'
 import OptionsTable from '../components/ProductEdit/OptionsTable.vue'
 import AddTierModal from '../components/ProductEdit/AddTierModal.vue'
-import { productService } from '@/services/product.service.ts'
+
+import { licenceService } from '@/services/licence.service.ts'
+import { subscriptionService } from '@/services/subscription.service.ts'
 
 const showModal = ref(false)
 const router = useRouter()
 const route = useRoute()
 
-// Ref for the child component
 const productComponentRef = ref(null)
+const product = ref(null)
 
 function openModal() {
   showModal.value = true
@@ -43,7 +45,33 @@ function openModal() {
 
 function handleAddTier(newTier) {
   showModal.value = false
+  // Optionally refresh tiers or product details if needed
 }
+
+onMounted(async () => {
+  const productId = route.params.product_id
+  const type = route.query.type
+
+  if (!productId || !type) {
+    console.error("Missing product ID or type in query")
+    router.push('/dashboard')
+    return
+  }
+
+  try {
+    if (type === 'licence') {
+      product.value = await licenceService.getLicenceById(productId)
+    } else if (type === 'subscription') {
+      product.value = await subscriptionService.getSubscriptionById(productId)
+    } else {
+      console.error("Unknown product type:", type)
+      router.push('/dashboard')
+    }
+  } catch (error) {
+    console.error("Failed to load product for edit:", error)
+    router.push('/dashboard')
+  }
+})
 
 async function handleSubmit() {
   try {
@@ -51,26 +79,30 @@ async function handleSubmit() {
       throw new Error('Product component not mounted')
     }
 
-    const product = productComponentRef.value.product
+    const updatedProduct = productComponentRef.value.product
     const productId = route.params.product_id
+    const type = route.query.type
 
-    console.log("Submitting product:", product)
-
-    await productService.update(productId, {
-      name: product.name,
-      description: product.description,
-      productType: parseInt(product.productType)
-    })
+    if (type === 'licence') {
+      console.log("Updating licence with ID:", updatedProduct);
+      await licenceService.updateLicence(productId, updatedProduct)
+    } else if (type === 'subscription') {
+      await subscriptionService.updateSubscription(productId, updatedProduct)
+    } else {
+      throw new Error("Unknown product type on submit")
+    }
 
     console.log("Product updated successfully")
-    router.push(`/products/${productId}`)
+    router.push(`/products/${productId}?type=${type}`)
   } catch (err) {
     console.error("Failed to update product:", err)
   }
 }
 
 function handleCancel() {
-  router.push(`/products/${route.params.product_id}`)
+  const productId = route.params.product_id
+  const type = route.query.type
+  router.push(`/products/${productId}?type=${type}`)
 }
 </script>
 

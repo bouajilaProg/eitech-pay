@@ -27,3 +27,6 @@ notes.md
 # misc
 *.misc.*
 *notes*.md
+
+
+./deploy/mariadb_data/*
