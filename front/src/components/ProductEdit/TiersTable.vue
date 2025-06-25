@@ -10,7 +10,7 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
-            <th>Price ($)</th>
+            <th>Price</th>
             <th>Duration (days)</th>
             <th>Grace Period</th>
           </tr>
@@ -31,7 +31,8 @@
 
 <script setup>
 
-console.log("TiersTable component loaded", tiers)
+
+
 
 
 defineProps({
@@ -41,6 +42,7 @@ defineProps({
   }
 })
 
+// console.log("TiersTable component loaded", tiers)
 
 
 </script>

@@ -10,14 +10,16 @@
           <tr>
             <th class="px-6 py-3 text-left font-semibold">ID</th>
             <th class="px-6 py-3 text-left font-semibold">Name</th>
+            <th class="px-6 py-3 text-left font-semibold">Description</th>
             <th class="px-6 py-3 text-left font-semibold">Price</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
           <tr v-for="option in options" :key="option.optionId" class="hover:bg-gray-50">
             <td class="px-6 py-3 text-gray-600">{{ option.optionId }}</td>
+            <td class="px-6 py-3 text-gray-600">{{ option.descripiton }}</td>
             <td class="px-6 py-3 text-gray-600">{{ option.optionName }}</td>
-            <td class="px-6 py-3 text-gray-600">${{ option.price }}</td>
+            <td class="px-6 py-3 text-gray-600">{{ option.price }}</td>
           </tr>
         </tbody>
       </table>

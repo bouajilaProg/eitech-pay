@@ -79,12 +79,9 @@ namespace Back.Modules.LicenceModule.Services
             const string query = @"
                 SELECT lo.licence_order_id, lo.user_id, lo.licence_id, lo.private_key, lo.status
                 FROM licence_order lo
-                JOIN users u ON lo.user_id = u.user_id
-                WHERE u.email = @Email 
                 AND lo.private_key = @LicenceKey
                 AND lo.status = 'Active'
-                AND lo.is_archived = FALSE
-                AND u.is_archived = FALSE";
+                AND lo.is_archived = FALSE";
 
             return await _db.QueryFirstOrDefaultAsync<LicenceOrder>(query, new { Email = email, LicenceKey = licenceKey });
         }

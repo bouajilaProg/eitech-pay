@@ -12,9 +12,15 @@
       </div>
 
       <ProductDetailsEdit ref="productComponentRef" v-if="product" :product="product" />
-      <OptionsTable v-if="product" @open-modal="openModal" />
+      <OptionsTable v-if="type === 'licence'" :options="options" />
+      <TiersTable v-if="type === 'subscription'" :tiers="tiers" />
       
-      <AddTierModal v-if="showModal" @close="showModal = false" @add-tier="handleAddTier" />
+      <AddLicenceOptionModal v-if="route.query.type === 'licence' && showModal" 
+                             @close="showModal = false" 
+                             @add-option="handleAddOption" />
+      <AddTierModal v-if="route.query.type === 'subscription' && showModal" 
+                    @close="showModal = false" 
+                    @add-tier="handleAddTier" />
     </main>
   </div>
 </template>
@@ -27,6 +33,8 @@ import { useRouter, useRoute } from 'vue-router'
 
 import ProductDetailsEdit from '../components/ProductEdit/ProductDetailsEdit.vue'
 import OptionsTable from '../components/ProductEdit/OptionsTable.vue'
+import TiersTable from '../components/ProductEdit/TiersTable.vue'
+import AddLicenceOptionModal from '../components/ProductEdit/AddLicenseOptionModal.vue'
 import AddTierModal from '../components/ProductEdit/AddTierModal.vue'
 
 import { licenceService } from '@/services/licence.service.ts'
@@ -38,6 +46,11 @@ const route = useRoute()
 
 const productComponentRef = ref(null)
 const product = ref(null)
+const tiers = ref([])
+const options = ref([])
+
+const productId = route.params.product_id
+const type = route.query.type
 
 function openModal() {
   showModal.value = true
@@ -45,28 +58,38 @@ function openModal() {
 
 function handleAddTier(newTier) {
   showModal.value = false
-  // Optionally refresh tiers or product details if needed
+  // Optional: re-fetch tiers
+}
+
+function handleAddOption(newOption) {
+  showModal.value = false
+  // Optional: re-fetch options
 }
 
 onMounted(async () => {
-  const productId = route.params.product_id
-  const type = route.query.type
-
-  if (!productId || !type) {
-    console.error("Missing product ID or type in query")
-    router.push('/dashboard')
-    return
-  }
-
   try {
+    if (!productId || !type) {
+      console.error("Missing product ID or type in query")
+      router.push('/dashboard')
+      return
+    }
+
     if (type === 'licence') {
       product.value = await licenceService.getLicenceById(productId)
+      options.value = await licenceService.getOptionsByLicenceId(productId)
+      tiers.value = []
     } else if (type === 'subscription') {
       product.value = await subscriptionService.getSubscriptionById(productId)
+      tiers.value = await subscriptionService.getTiersBySubscriptionId(productId)
+      options.value = []
     } else {
       console.error("Unknown product type:", type)
       router.push('/dashboard')
     }
+
+    console.log("Product loaded:", product.value)
+    console.log("Tiers:", tiers.value)
+    console.log("Options:", options.value)
   } catch (error) {
     console.error("Failed to load product for edit:", error)
     router.push('/dashboard')
@@ -75,16 +98,11 @@ onMounted(async () => {
 
 async function handleSubmit() {
   try {
-    if (!productComponentRef.value) {
-      throw new Error('Product component not mounted')
-    }
+    if (!productComponentRef.value) throw new Error('Product component not mounted')
 
     const updatedProduct = productComponentRef.value.product
-    const productId = route.params.product_id
-    const type = route.query.type
 
     if (type === 'licence') {
-      console.log("Updating licence with ID:", updatedProduct);
       await licenceService.updateLicence(productId, updatedProduct)
     } else if (type === 'subscription') {
       await subscriptionService.updateSubscription(productId, updatedProduct)
@@ -100,12 +118,6 @@ async function handleSubmit() {
 }
 
 function handleCancel() {
-  const productId = route.params.product_id
-  const type = route.query.type
   router.push(`/products/${productId}?type=${type}`)
 }
 </script>
-
-<style scoped>
-/* No edit-mode styles */
-</style>
