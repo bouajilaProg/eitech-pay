@@ -50,10 +50,10 @@ namespace Back.Modules.LicenceModule.Services
             const string query = @"
                 INSERT INTO licence_option (option_id,licence_id, option_name, description, price, is_archived)
                 VALUES (@OptionId,@LicenceId, @OptionName, @Description, @Price, false);
-                SELECT LAST_INSERT_ID();
             ";
 
-            return await _db.ExecuteScalarAsync<string>(query, option);
+            await _db.ExecuteAsync(query, option);
+            return option.OptionId;
         }
 
         public async Task<bool> UpdateAsync(LicenceOption option)

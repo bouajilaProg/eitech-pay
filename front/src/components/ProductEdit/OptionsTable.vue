@@ -163,9 +163,15 @@ function openDeleteModal(index) {
   showDeleteModal.value = true
 }
 
-function confirmDeleteOption() {
+async function confirmDeleteOption() {
   if (optionToDeleteIndex.value !== null) {
-    licenseOptions.value.splice(optionToDeleteIndex.value, 1)
+    const option = licenseOptions.value[optionToDeleteIndex.value]
+    try {
+      await licenceService.deleteOption(option.optionId)
+      licenseOptions.value.splice(optionToDeleteIndex.value, 1)
+    } catch (err) {
+      console.error('Delete failed:', err)
+    }
     optionToDeleteIndex.value = null
   }
   showDeleteModal.value = false
