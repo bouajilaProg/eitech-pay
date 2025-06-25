@@ -16,7 +16,7 @@ namespace Back.Modules.SubscriptionModule.Dtos
       public string TierName { get; set; } = null!;
       public string TierDescription { get; set; } = null!;
       public int Duration { get; set; }
-      public int GracePeriod { get; set; }
+      public string GracePeriod { get; set; }
       public decimal Price { get; set; }
     } 
 }

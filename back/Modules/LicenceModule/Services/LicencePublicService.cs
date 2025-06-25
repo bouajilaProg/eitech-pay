@@ -153,12 +153,15 @@ namespace Back.Modules.LicenceModule.Services
                 Description = licence.Description,
                 MaxDevices = licence.MaxDevices,
                 Duration = licence.Duration,
-                GracePeriod = int.TryParse(licence.GracePeriod, out var grace) ? grace : 0,
+                GracePeriod = licence.GracePeriod,
                 PublicKey = licence.PublicKey,
                 Price = licence.Price,
                 IsArchived = licence.IsArchived,
                 Options = licenceOptions ?? new List<LicenceOption>()
             };
+        }
+
+
         private async Task<LicenceOrder?> ValidateLicenceKeyAsync(string email, string licenceKey)
         {
             const string query = @"

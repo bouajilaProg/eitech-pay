@@ -58,7 +58,6 @@ namespace Back.Modules.LicenceModule.Controllers
 
           return Ok(result);
         }
-    } 
         /// <summary>
         /// Activate a licence for a device.
         /// </summary>
@@ -138,8 +137,7 @@ namespace Back.Modules.LicenceModule.Controllers
 
 
         [HttpPost("{licenceId}/payment/initiate")]
-        public async Task<ActionResult> InitiatePayment(string licenceId, [FromBody] LicencePaymentRequestDto paymentRequest)
-        {
+        public async Task<ActionResult> InitiatePayment(string licenceId, [FromBody] LicencePaymentRequestDto paymentRequest){
             // Get settings from configuration
             var konnectId = _configuration["Konnect:ReceiverWalletId"];
             var apiKey = _configuration["Konnect:ApiKey"];
@@ -196,6 +194,7 @@ namespace Back.Modules.LicenceModule.Controllers
                 payUrl = responseDict["payUrl"],
                 paymentRef = responseDict["paymentRef"]
             });
+
         }
 
         // [HttpGet("payment/{paymentRef}")]

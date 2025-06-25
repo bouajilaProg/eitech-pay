@@ -57,6 +57,8 @@ namespace Back.Controllers.Public
             return Ok(result);
 
 
+        }
+
 
         [HttpPost("{subscriptionId}/payment/initiate")]
         public async Task<ActionResult> InitiatePayment(string subscriptionId, [FromBody] PaymentRequestDto paymentRequest)
