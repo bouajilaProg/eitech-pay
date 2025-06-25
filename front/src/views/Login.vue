@@ -45,7 +45,7 @@
             </label>
           </div>
 
-          <!-- CAPTCHA shown only after 3 failed attempts -->
+          <!-- CAPTCHA shown only after 3 failed attempts 
           <div class="mb-3" v-if="captchaEnabled">
             <VueRecaptcha
               ref="recaptcha"
@@ -53,7 +53,7 @@
               @verify="onCaptchaVerified"
               @expired="onCaptchaExpired"
             />
-          </div>
+          </div>-->
 
           <div class="form-footer">
             <button
